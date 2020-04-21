@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+     <meta charset="UTF-8">
+     <title>用户注册</title>
+    <base th:href="${url}"/>
+    <script type="text/javascript" src="assets/js/jquery-1.11.1.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $("#ruser").submit(function(){
+                var flag=true;
+                $("input[type='text'],input[type='password']").each(function(i,obj){
+                    if($(obj).val()==""){
+                        alert("带*号为必填项！");
+                        flag=false;
+                        return false;
+                    }
+                });
+                if(flag){
+                    flag=$("#p1").val() == $("#p2").val();
+                    if(!flag)
+                        alert("两次输入密码不一致！")
+                }
+                if(!flag)
+                    return false;
+                if(flag){
+                    var arr = $("#ruser").serializeArray();
+                    $.ajax({
+                        url:"/ruser",
+                        type:"post",
+                        data:arr,
+                        dataType:"json",
+                        cache:false,
+                        async:true,
+                        success:function(data){
+                            if(data.flag=='false'){
+                                alert(data.message)
+                            }else{
+                                alert(data.message);
+                                window.location.href="/";
+                            }
+                        }
+                    });
+                    return false;
+                }
+            });
+
+        })
+
+    </script>
+</head>
+<body>
+
+
+  <form action="ruser" method="post" id="ruser">
+  	<table border="1" cellspacing="0" bordercolor="#92ADED" >
+    <tr>
+        <td colspan="3">
+   			 <img src="image/banner.jpg" width="1116" height="109">    	</td>
+    </tr>
+    
+    <tr  bgcolor="#5499C2" width="145" height="40">
+         <td  align="right" ><font color="#FFFFFF">注册信息</font> </td>
+   		 <td width="240"></td>
+         <td align="center" width="750"><font color="#FFFFFF">填写信息（<font color="#FF0000">*</font>&nbsp;必须填写）</font> </td>
+    </tr>
+    
+    <tr height="35">
+    <td align="right">用&nbsp;户&nbsp;名:</td>
+    <td><input type="text" name="username" size="34" maxlength="20" ></td>
+    <td><font color="#B7536F" >*请填写6到20位数字,字母或下划线作为用户名，请不要输入汉字或其他字符</font></td>
+    </tr>
+  
+    <tr height="35">
+       <td align="right">密&nbsp;码&nbsp;:</td>
+       <td><input type="password" name="password" id="p1" size="34" maxlength="15"></td>
+       <td><font color="#B7536F">*大写字母+小写字母+数字的8至15位字符组合</font></td>
+    </tr>
+    
+    <tr height="35" >
+       <td align="right">确认密码:</td>
+       <td><input type="password"  size="34" maxlength="15" id="p2"></td>
+       <td><font color="#B7536F">*</font></td>
+    </tr>
+    
+    <tr height="35">
+    <td align="right">真实姓名:</td>
+       <td><input type="text" name="realName" size="34" maxlength="25"></td>
+       <td><font color="#B7536F">*姓名中间请不要输入空格，注册后不能修改！</font><a href="http://zg.cpta.com.cn/examfront/cms/ShowArticle.jsp"><font size="2" color="#FF0000">如姓名中含有生僻字或".",参见姓名中如何输入生僻字</font></a></td>
+    </tr>
+    
+
+    
+    <tr height="35">
+     <td align="right">班级全称:</td>
+       <td><input type="text" name="className" size="34" maxlength="18"></td>
+       <td><font color="#B7536F">*注册后不得自行修改</font></td>
+    </tr>
+    
+
+    
+
+    
+    <tr height="35">
+     <td align="right">手机号:</td>
+       <td><input type="text" name="tel" size="34" maxlength="11"></td>
+       <td><font color="#B7536F">*注册后自行绑定手机，用于发送短信或重要操作身份认定，务必填写本人现用手机</font></td>
+    </tr>
+    
+
+    
+    <tr height="35" >
+      
+      <td colspan="3" align="center"> 
+         <input type="submit" name="send" value="提交"  style="background:#F87D2C;color:#FFFFFF;width:70px;height:30px;"/>
+         <input type="button" name="send" value="返回"  style="background:#F87D2C;color:#FFFFFF;width:70px;height:30px;"/>
+      </td>
+    </tr>    
+    
+    
+    </table>
+  </form>
+  </center>
+</body>
+</html>
