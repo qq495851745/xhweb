@@ -1,7 +1,6 @@
 package com.bateng.guestroom;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bateng.guestroom.config.util.FastDFSClient;
 import com.bateng.guestroom.entity.User;
 import jdk.nashorn.internal.ir.debug.JSONWriter;
 import org.hibernate.mapping.Collection;
