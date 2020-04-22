@@ -17,7 +17,7 @@ public class GuestroomApplication {
 
     public static void main(String[] args) {
 
-        System.out.println();
+        System.out.println("ui");
         System.out.println();
         SpringApplication.run(GuestroomApplication.class, args);
 
