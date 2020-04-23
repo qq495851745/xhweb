@@ -7,8 +7,6 @@ import com.bateng.guestroom.dao.MenuDao;
 import com.bateng.guestroom.dao.UserDao;
 import com.bateng.guestroom.entity.Menu;
 import com.bateng.guestroom.entity.User;
-import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.ArrayListHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
