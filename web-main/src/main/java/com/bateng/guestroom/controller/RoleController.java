@@ -43,6 +43,7 @@ public class RoleController {
         return "role/role_index";
     }
 
+    @RequestMapping(value = "/role/")
 
     public RoleBiz getRoleBiz() {
         return roleBiz;

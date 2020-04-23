@@ -7,6 +7,9 @@ import java.util.List;
 
 public interface RoleBiz {
 
+    /**
+     * 添加角色
+     * */
     public void addRole(Role role);
 
     /**
