@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @Service("menuBiz")
 public class MenuBizImpl implements MenuBiz {
@@ -26,7 +26,6 @@ public class MenuBizImpl implements MenuBiz {
 
     @Override
     public Menu getMenuById(int id) {
-
         return menuDao.getOne(id);
     }
 
@@ -92,6 +91,12 @@ public class MenuBizImpl implements MenuBiz {
         }
         }, SerializerFeature.DisableCircularReferenceDetect);
     }
+
+    @Override
+    public String findMenuById(Integer id) {
+        return menuDao.findMenuById(id);
+    }
+
 
     @Override
     public String findMenusAjax() {

@@ -38,8 +38,9 @@ public interface MenuBiz {
      public String findMenusByUserIdAjax(int id);
 
 
-
-
-
+    /**
+     * 通过Id查找name
+     * */
+    public String findMenuById(Integer id);
 
 }

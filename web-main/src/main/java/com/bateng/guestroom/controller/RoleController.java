@@ -1,7 +1,9 @@
 package com.bateng.guestroom.controller;
 
 import com.bateng.guestroom.biz.RoleBiz;
+import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Role;
+import com.bateng.guestroom.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +32,15 @@ public class RoleController {
         List<Role> roles=roleBiz.findRole();
         model.addAttribute("roles",roles);
         return  "user/user_add_lookup_role";
+    }
+
+    //restful  命名规则
+    @RequestMapping(value = "/role/index",method = RequestMethod.GET)
+    public String index(PageVo<Role> pageVo, Role role, Model model){
+       pageVo=roleBiz.findRoleByPage(pageVo,role);
+        model.addAttribute("pageVo", pageVo);
+        model.addAttribute("role", role);
+        return "role/role_index";
     }
 
 

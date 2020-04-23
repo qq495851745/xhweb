@@ -6,6 +6,7 @@ import com.alibaba.fastjson.serializer.SerializeFilter;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bateng.guestroom.biz.RoleBiz;
 import com.bateng.guestroom.dao.RoleDao;
+import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,11 @@ public class RoleBizImpl implements RoleBiz {
                 }
         }, SerializerFeature.DisableCircularReferenceDetect);
 
+    }
+
+    @Override
+    public PageVo<Role> findRoleByPage(PageVo<Role> pageVo, Role role) {
+        return roleDao.findRoleByPage(pageVo,role);
     }
 
     @Override
