@@ -133,7 +133,7 @@ public class Menu {
         this.target = target;
     }
 
-    public List<Role> getRoles() {
+    public List<Role> getRoles(Role role) {
         return roles;
     }
 

@@ -136,16 +136,16 @@
         }
 
         $(function () {
-                $.ajax({
-                    url: "ajax/menu/findMenus",
-                    type: "post",
-                    cache: false,
-                    dataType: "json",
-                    async: false,
-                    success: function (data) {
-                        init(data);
-                    }
-                });
+            $.ajax({
+                url: "ajax/menu/findMenus",
+                type: "post",
+                cache: false,
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    init(data);
+                }
+            });
             DWZ.init("dwz/dwz.frag.xml", {
                 loginUrl: "login_dialog.html", loginTitle: "登录",	// 弹出登录对话框
 //		loginUrl:"login.html",	// 跳到登录页面
@@ -176,10 +176,10 @@
         <div class="headerNav">
             <!--<a class="logo" href="http://j-ui.com">标志</a>-->
             <ul class="nav">
-               <!-- <li><a href="donation.html" target="dialog" height="400">报表</a></li>
-                <li><a href="changepwd.html" target="dialog" rel="changepwd" width="600">房间搜索</a></li>
-                <li><a href="" target="_blank">报修单</a></li>
-                <li><a href="" target="_blank">某某功能</a></li>-->
+                <!-- <li><a href="donation.html" target="dialog" height="400">报表</a></li>
+                 <li><a href="changepwd.html" target="dialog" rel="changepwd" width="600">房间搜索</a></li>
+                 <li><a href="" target="_blank">报修单</a></li>
+                 <li><a href="" target="_blank">某某功能</a></li>-->
                 <li><a href="loginout">退出</a></li>
             </ul>
             <ul class="themeList" id="themeList">
