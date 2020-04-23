@@ -55,7 +55,7 @@
     </form>
 </div>
 <div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid"
-     xmlns:th="http://www.thymeleaf.org" id="user_index_pageContent">
+     xmlns:th="http://www.thymeleaf.org" id="role_index_pageContent">
     <div class="panelBar">
         <ul class="toolBar">
             <li><a class="add"   href="guestroom/user/toAdd"  target="navTab" mask="true"><span>添加角色</span></a>
@@ -117,7 +117,7 @@
         if (!len)
             setTimeout(arguments.callee, 100);
         else {
-            displayText({"relId":"user_index_pageContent"});
+            displayText({"relId":"role_index_pageContent"});
             $("#bt_role_sel").css({display: "block"});
             $("#bt_role_sel").prev().css({display: "none"});
             $("#bt_role_sel").val($("#bt_role_sel").parents(".unitBox:first").find("input[name=\"numPerPage\"]").val());
