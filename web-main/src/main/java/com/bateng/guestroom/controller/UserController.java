@@ -32,14 +32,6 @@ public class UserController extends BaseController {
         return "user/user_index";
     }
 
-    @RequestMapping(value = "/user/menu",method = {RequestMethod.GET, RequestMethod.POST})
-    public String menu(PageVo<User> pageVo, User user, Model model){
-        pageVo = userBiz.findUserByPage(pageVo, user);
-        model.addAttribute("pageVo", pageVo);
-        model.addAttribute("user", user);
-        return "user/user_menu";
-    }
-
     //跳转查找用户层级
     @RequestMapping(value = "user/userlevel/tolookup", method = RequestMethod.GET)
     public String toUserLevelLookup() {

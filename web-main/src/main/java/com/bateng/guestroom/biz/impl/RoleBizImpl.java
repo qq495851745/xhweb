@@ -45,6 +45,12 @@ public class RoleBizImpl implements RoleBiz {
     }
 
     @Override
+    public List<Role> findRoleByName(Role role) {
+        return roleDao.findAllByName(role.getName());
+    }
+
+
+    @Override
     public List<Role> findRole() {
         return roleDao.findAllByFlag(1);
     }
