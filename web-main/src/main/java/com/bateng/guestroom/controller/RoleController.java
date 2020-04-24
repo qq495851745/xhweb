@@ -9,7 +9,6 @@ import com.bateng.guestroom.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,6 +21,7 @@ public class RoleController {
 
     @Autowired
     private RoleBiz roleBiz;
+
 
     @RequestMapping(value = "/role/ajax",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     @ResponseBody
@@ -37,35 +37,39 @@ public class RoleController {
     }
 
     //restful  命名规则
-    @RequestMapping(value = "/role/index",method = RequestMethod.GET)
+    @RequestMapping(value = "/role/index",method = {RequestMethod.GET})
     public String index(PageVo<Role> pageVo, Role role, Model model){
        pageVo=roleBiz.findRoleByPage(pageVo,role);
         model.addAttribute("pageVo", pageVo);
         model.addAttribute("role", role);
         return "role/role_index";
     }
-    //跳转修改页面
-    @RequestMapping(value = "/role/{id}",method = {RequestMethod.GET})
-    public String toEdit(@PathVariable("id") int id, Model model) {
-        Role role = roleBiz.getRoleById(id);
-        model.addAttribute("role",role);
-        return "role/role_edit";
+    //跳转添加页面
+    @RequestMapping(value = "/role/toAdd",method = {RequestMethod.GET})
+    public String toAdd(){
+        return "role/role_add";
     }
 
-    //做修改
-    @RequestMapping(value = "/role",method = RequestMethod.PUT,produces = "application/json;charset=utf-8")
+    //添加
+    //做添加操作
+    @RequestMapping(value = "/role", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String doEdit(Role role){
-        roleBiz.updateRole(role);
+    public String add(Role role) {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("statusCode", StatusCodeDWZ.OK);
-        jsonObject.put("message", "更新完成!");
-        jsonObject.put("navTabId", "w_41");
-        jsonObject.put("callbackType","closeCurrent");
-        return  jsonObject.toJSONString();
+        //验证用户名是否存在
+        List<Role> roles = roleBiz.findRoleByName(role);
+        if (roles.size() > 0) {//这个用户已经存在
+            jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
+            jsonObject.put("message", "当前用户名已经存在，不能使用");
+        } else {
+            roleBiz.addRole(role);
+            jsonObject.put("statusCode", StatusCodeDWZ.OK);
+            jsonObject.put("callbackType", "closeCurrent");//关闭当前标签页
+            jsonObject.put("navTabId", "w_e");
+            jsonObject.put("message", "用户添加成功");
+        }
+        return jsonObject.toJSONString();
     }
-
-    @RequestMapping(value = "/role/")
 
     public RoleBiz getRoleBiz() {
         return roleBiz;

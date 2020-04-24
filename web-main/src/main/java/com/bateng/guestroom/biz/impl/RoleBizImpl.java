@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service("roleBiz")
@@ -48,15 +45,10 @@ public class RoleBizImpl implements RoleBiz {
     }
 
     @Override
-    public Role getRoleById(int id) {
-        return roleDao.getOne(id);
+    public List<Role> findRoleByName(Role role) {
+        return roleDao.findAllByName(role.getName());
     }
 
-    @Override
-    @Transactional
-    public void updateRole(Role role) {
-        roleDao.updateRole(role.getName(),role.getUpdateDate(),role.getId());
-    }
 
     @Override
     public List<Role> findRole() {

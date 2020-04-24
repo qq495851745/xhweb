@@ -22,6 +22,7 @@ public class Role {
     private int flag;//删除标记
 
     @Column(name = "createdate")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date createDate;
 

@@ -3,11 +3,8 @@ package com.bateng.guestroom.dao;
 import com.bateng.guestroom.dao.repository.RoleRepository;
 import com.bateng.guestroom.entity.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -15,7 +12,5 @@ public interface RoleDao extends JpaRepository<Role,Integer>, RoleRepository {
 
     public List<Role> findAllByFlag(int flag);
 
-    @Query("update Role r set r.name=:name,r.updateDate=:updateDate where r.id=:id")
-    @Modifying
-    public void updateRole(String name, Date updateDate,int id);
+    public List<Role> findAllByName(String name);
 }
