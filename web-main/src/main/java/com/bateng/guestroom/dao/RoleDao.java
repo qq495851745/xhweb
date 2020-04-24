@@ -11,4 +11,6 @@ import java.util.List;
 public interface RoleDao extends JpaRepository<Role,Integer>, RoleRepository {
 
     public List<Role> findAllByFlag(int flag);
+
+    public List<Role> findAllByName(String name);
 }

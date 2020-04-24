@@ -1,6 +1,8 @@
 package com.bateng.guestroom.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bateng.guestroom.biz.RoleBiz;
+import com.bateng.guestroom.config.constant.StatusCodeDWZ;
 import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Role;
 import com.bateng.guestroom.entity.User;
@@ -35,15 +37,39 @@ public class RoleController {
     }
 
     //restful  命名规则
-    @RequestMapping(value = "/role/index",method = RequestMethod.GET)
+    @RequestMapping(value = "/role/index",method = {RequestMethod.GET})
     public String index(PageVo<Role> pageVo, Role role, Model model){
        pageVo=roleBiz.findRoleByPage(pageVo,role);
         model.addAttribute("pageVo", pageVo);
         model.addAttribute("role", role);
         return "role/role_index";
     }
+    //跳转添加页面
+    @RequestMapping(value = "/role/toAdd",method = {RequestMethod.GET})
+    public String toAdd(){
+        return "role/role_add";
+    }
 
-    @RequestMapping(value = "/role/")
+    //添加
+    //做添加操作
+    @RequestMapping(value = "/role", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String add(Role role) {
+        JSONObject jsonObject = new JSONObject();
+        //验证用户名是否存在
+        List<Role> roles = roleBiz.findRoleByName(role);
+        if (roles.size() > 0) {//这个用户已经存在
+            jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
+            jsonObject.put("message", "当前用户名已经存在，不能使用");
+        } else {
+            roleBiz.addRole(role);
+            jsonObject.put("statusCode", StatusCodeDWZ.OK);
+            jsonObject.put("callbackType", "closeCurrent");//关闭当前标签页
+            jsonObject.put("navTabId", "w_e");
+            jsonObject.put("message", "用户添加成功");
+        }
+        return jsonObject.toJSONString();
+    }
 
     public RoleBiz getRoleBiz() {
         return roleBiz;
