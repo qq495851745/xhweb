@@ -49,6 +49,17 @@ public class RoleBizImpl implements RoleBiz {
         return roleDao.findAllByName(role.getName());
     }
 
+    @Override
+    @Transactional
+    public void updateRole(Role role) {
+        roleDao.updateRole(role.getName(),role.getUpdateDate(),role.getId());
+    }
+
+    @Override
+    public Role getRoleById(int id) {
+        return roleDao.getOne(id);
+    }
+
 
     @Override
     public List<Role> findRole() {

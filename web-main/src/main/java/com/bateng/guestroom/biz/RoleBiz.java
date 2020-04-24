@@ -28,4 +28,8 @@ public interface RoleBiz {
     public PageVo<Role> findRoleByPage(PageVo<Role> pageVo, Role role);
 
     public List<Role> findRoleByName(Role role);
+
+    public void updateRole(Role role);
+
+    public Role getRoleById(int id);
 }
