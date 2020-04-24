@@ -1,5 +1,7 @@
 package com.bateng.guestroom.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -24,6 +26,7 @@ public class Role {
     private Date createDate;
 
     @Column(name="updatetime")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
     private Date updateDate;
 

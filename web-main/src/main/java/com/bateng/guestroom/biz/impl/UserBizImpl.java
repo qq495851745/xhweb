@@ -69,9 +69,9 @@ public class UserBizImpl implements UserBiz {
             userDao.updateUser(user.getRole().getId(),user.getUserLevel().getId(),user.getUpdateDate(),user.getId(),user.getPassword());
     */
          Role role = new Role();
-         role.setId(2);
-         user.setRole(role);
-         userDao.updateUser(user.getDes(),user.getFlag(),user.getId(),user.getRole().getId());
+        role.setId(2);
+        user.setRole(role);
+        userDao.updateUser(user.getDes(),user.getFlag(),user.getId(),user.getRole().getId());
     }
 
     @Override

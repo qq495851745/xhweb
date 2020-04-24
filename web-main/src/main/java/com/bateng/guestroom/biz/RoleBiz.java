@@ -2,6 +2,7 @@ package com.bateng.guestroom.biz;
 
 import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Role;
+import com.bateng.guestroom.entity.User;
 
 import java.util.List;
 
@@ -25,5 +26,9 @@ public interface RoleBiz {
     public List<Role> findRole();
 
     public PageVo<Role> findRoleByPage(PageVo<Role> pageVo, Role role);
+
+    public Role getRoleById(int id);
+
+    public void updateRole(Role role);
 
 }

@@ -62,7 +62,7 @@
             </li>
            <!-- <li><a class="delete" href="guestroom/user/{sid_obj}" target="ajaxTodo"
                    title="确定要删除吗?" _method="delete"><span>删除</span></a></li>-->
-            <li><a class="edit" href="guestroom/user/{sid_obj}" target="navTab"
+            <li><a class="edit" href="guestroom/role/{sid_obj}" target="navTab"
                    mask="true"><span>修改/查看</span></a></li>
             <li class="line">line</li>
             <!--<li><a class="icon" href="demo/common/dwz-team.xls" target="dwzExport"
@@ -75,6 +75,7 @@
             <th width="80">序号</th>
             <th width="120">角色名</th>
             <th width="120">创建时间</th>
+            <th width="120">更新时间</th>
         </tr>
         </thead>
         <tbody >
@@ -82,6 +83,7 @@
              <td th:text="${roleStat.index+1}">1</td>
              <td th:text="${role.name}">1</td>
              <td th:text="${role.createDate}"></td>
+             <td th:text="${role.updateDate}"></td>
          </tr>
 
 
