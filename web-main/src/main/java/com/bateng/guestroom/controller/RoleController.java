@@ -9,6 +9,7 @@ import com.bateng.guestroom.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -69,6 +70,26 @@ public class RoleController {
             jsonObject.put("message", "用户添加成功");
         }
         return jsonObject.toJSONString();
+    }
+
+    //跳转修改页面
+    @RequestMapping(value = "/role/{id}",method = {RequestMethod.GET})
+    public String toEdit(@PathVariable("id") int id, Model model) {
+        Role role = roleBiz.getRoleById(id);
+        model.addAttribute("role",role);
+        return "role/role_edit";
+    }
+    //执行修改操作
+    @RequestMapping(value = "/role",method = RequestMethod.PUT,produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String doEdit(Role role){
+        roleBiz.updateRole(role);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("statusCode", StatusCodeDWZ.OK);
+        jsonObject.put("message", "更新完成!");
+        jsonObject.put("navTabId", "w_41");
+        jsonObject.put("callbackType","closeCurrent");
+        return  jsonObject.toJSONString();
     }
 
     public RoleBiz getRoleBiz() {
