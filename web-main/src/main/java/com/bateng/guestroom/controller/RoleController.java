@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -63,6 +64,8 @@ public class RoleController {
             jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
             jsonObject.put("message", "当前用户名已经存在，不能使用");
         } else {
+            role.setCreateDate(new Date());
+            role.setUpdateDate(new Date());
             roleBiz.addRole(role);
             jsonObject.put("statusCode", StatusCodeDWZ.OK);
             jsonObject.put("callbackType", "closeCurrent");//关闭当前标签页
