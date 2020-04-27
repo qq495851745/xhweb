@@ -44,6 +44,12 @@ public class UserController extends BaseController {
         return "user/user_add";
     }
 
+
+
+    public String Modification(){
+        return "";
+    }
+
     //做添加操作
     @RequestMapping(value = "/user", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody

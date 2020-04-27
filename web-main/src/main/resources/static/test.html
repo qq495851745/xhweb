@@ -6,7 +6,7 @@
     <base href="http://localhost"/>
     <script src="dwz/js/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(function () {
+        $(function(){
             $.ajax({
                 url: "ajax/menu/findMenus",
                 type: "post",
@@ -16,23 +16,21 @@
                 success: function (data) {
                     $("#div").append("<ul></ul>");
                     $.each(data,function (i,obj) {
-                        // obj生成对应li标签
-                        var html="<li id='d"+obj.id+"'><a>"+obj.name+"</a></li>";
+                        //obj生成对应li标签
+                        var html = "<li id='u"+obj.id+"'><a>"+obj.name+"</a></li>";
                         //分辨层次
-                        if(obj.pId==0){//是顶级标签
-                            $("div >ul ").append(html);
-                        }else{//不是顶级标签
-                            var pid="d"+obj.pId;//获取父亲ID
-                            var size=$("#"+pid).find("ul").size()//ul是否已经加了
-                            if(size==0)//没有加ul
-                               $("#"+pid).append("<ul></ul>");
-                            $("#"+pid).find("ul").append(html);   //找到父级标签
+                        if (obj.pId==0){//是顶级标签
+                            $("div > ul").append(html);
+                        }else {//不是顶级标签
+                            var pid = "u"+obj.pId;//获取父亲ID
+                            var size = $("#"+pid).find("ul").size();//ul是否已经加了
+                            if(size == 0) {//没有加ul
+                                $("#" + pid).append("<ul></ul>");
+                            }
+                            $("#" + pid).find("ul").append(html);//找到父级标签
 
                         }
                     })
-                    //1.补充样式，等
-                    //2.bug 先有子标签，再遍历到父标签时。有问题。
-
                 }
             });
         });
@@ -40,7 +38,7 @@
 </head>
 <body>
     <div id="div">
-
+        <p>添加菜单</p>
     </div>
 </body>
 </html>

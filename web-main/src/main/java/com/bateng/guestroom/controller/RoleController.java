@@ -52,6 +52,11 @@ public class RoleController {
         return "role/role_add";
     }
 
+    //跳转添加页面
+    @RequestMapping(value = "/role/roAdd",method = {RequestMethod.GET})
+    public String roAdd(){
+        return "role/role_index";
+    }
     //添加
     //做添加操作
     @RequestMapping(value = "/role", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
