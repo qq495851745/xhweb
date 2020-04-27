@@ -53,7 +53,7 @@
                 $("#AccessOptions").append("<ul class='tree treeFolder treeCheck expand'></ul>");
                 $.each(data,function (i,obj) {
                     // obj生成对应li标签
-                    var html="<li id='d"+obj.id+"'><a>"+obj.name+"</a></li>";
+                    var html="<li id='d"+obj.id+"'><a tname='menus' tvalue='"+obj.id+"'>"+obj.name+"</a></li>";
                     //分辨层次
                     if(obj.pId==0){//是顶级标签
                         $("#AccessOptions >ul ").append(html);
@@ -66,8 +66,6 @@
 
                     }
                 })
-                //1.补充样式，等
-                //2.bug 先有子标签，再遍历到父标签时。有问题。
 
             }
         });
