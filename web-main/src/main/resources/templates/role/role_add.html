@@ -14,6 +14,12 @@
                     <input name="createDate" type="date"  value="" class="required" maxlength="50"/>
                 </dd>
             </dl>
+            <dl class="nowrap">
+                <dt>权限选择：</dt>
+                <dd id="AccessOptions" style="height: 150px ;width: 200px; overflow: scroll">
+
+                </dd>
+            </dl>
         </div>
         <div class="formBar">
             <ul>
@@ -35,5 +41,37 @@
         </div>
     </div>
 </form>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: "ajax/menu/findMenus",
+            type: "post",
+            cache: false,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#AccessOptions").append("<ul class='tree treeFolder treeCheck expand'></ul>");
+                $.each(data,function (i,obj) {
+                    // obj生成对应li标签
+                    var html="<li id='d"+obj.id+"'><a>"+obj.name+"</a></li>";
+                    //分辨层次
+                    if(obj.pId==0){//是顶级标签
+                        $("#AccessOptions >ul ").append(html);
+                    }else{//不是顶级标签
+                        var pid="d"+obj.pId;//获取父亲ID
+                        var size=$("#"+pid).find("ul").size()//ul是否已经加了
+                        if(size==0)//没有加ul
+                            $("#"+pid).append("<ul></ul>");
+                        $("#"+pid).find("ul").append(html);   //找到父级标签
+
+                    }
+                })
+                //1.补充样式，等
+                //2.bug 先有子标签，再遍历到父标签时。有问题。
+
+            }
+        });
+    });
+</script>
 
 

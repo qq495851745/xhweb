@@ -14,7 +14,7 @@
                 dataType: "json",
                 async: false,
                 success: function (data) {
-                    $("#div").append("<ul></ul>");
+                    $("#div").append("<ul class='tree treeFolder treeCheck expand' oncheck='test_check_tree'></ul>");
                     $.each(data,function (i,obj) {
                         // obj生成对应li标签
                         var html="<li id='d"+obj.id+"'><a>"+obj.name+"</a></li>";
