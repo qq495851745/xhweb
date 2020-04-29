@@ -3,6 +3,8 @@ package com.bateng.guestroom.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.bateng.guestroom.biz.MenuBiz;
 import com.bateng.guestroom.biz.RoleBiz;
+import com.bateng.guestroom.biz.UserBiz;
+import com.bateng.guestroom.biz.impl.UserBizImpl;
 import com.bateng.guestroom.config.constant.StatusCodeDWZ;
 import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Role;
@@ -24,6 +26,7 @@ public class RoleController {
 
     @Autowired
     private RoleBiz roleBiz;
+    private UserBiz userBiz;
 
     @Autowired
     private MenuBiz menuBiz;
@@ -44,6 +47,7 @@ public class RoleController {
     }
 
     //restful  命名规则
+    //首页
     @RequestMapping(value = "/role/index",method = {RequestMethod.GET})
     public String index(PageVo<Role> pageVo, Role role, Model model){
        pageVo=roleBiz.findRoleByPage(pageVo,role);
@@ -105,6 +109,7 @@ public class RoleController {
         jsonObject.put("callbackType","closeCurrent");
         return  jsonObject.toJSONString();
     }
+
 
     public RoleBiz getRoleBiz() {
         return roleBiz;

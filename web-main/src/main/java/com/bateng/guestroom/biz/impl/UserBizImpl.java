@@ -38,7 +38,7 @@ public class UserBizImpl implements UserBiz {
 
     @Override
     public User getUserById(int id) {
-        return userDao.getOne(id);
+        return userDao.findUserById(id);
     }
 
 
@@ -68,10 +68,11 @@ public class UserBizImpl implements UserBiz {
         }else
             userDao.updateUser(user.getRole().getId(),user.getUserLevel().getId(),user.getUpdateDate(),user.getId(),user.getPassword());
     */
-         Role role = new Role();
-        role.setId(2);
-        user.setRole(role);
-        userDao.updateUser(user.getDes(),user.getFlag(),user.getId(),user.getRole().getId());
+//         Role role = new Role();
+//        role.setId(2);
+//        user.setRole(role);
+//        userDao.updateUser(user.getDes(),user.getFlag(),user.getId(),user.getRole().getId());
+        userDao.updateUser(user.getRole().getId(),user.getId());
     }
 
     @Override

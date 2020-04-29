@@ -21,6 +21,7 @@ public interface RoleBiz {
      */
     public  String findRoleAjax();
 
+
     /**
      * 查询所有角色
      * @return

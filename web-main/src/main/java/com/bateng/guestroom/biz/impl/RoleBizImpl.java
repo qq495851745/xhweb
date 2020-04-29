@@ -26,6 +26,7 @@ public class RoleBizImpl implements RoleBiz {
         roleDao.save(role);
     }
 
+
     @Override
     public String findRoleAjax() {
         List<Role> roles=roleDao.findAll();

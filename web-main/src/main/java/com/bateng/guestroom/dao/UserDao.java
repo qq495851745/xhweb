@@ -24,9 +24,14 @@ public interface UserDao extends JpaRepository<User, Integer>, UserRepository {
     @Modifying
     public void updateUser(String des, int flag, int id,int rid);
 
+    @Query("update User u set u.role.id=:roleId where u.id= :id")
+    @Modifying
+    public void updateUser(int roleId,int id);
+
     @Query("update User u set u.role.id= :roleId ,u.userLevel.id =:userLevelId, u.updateDate =:updateDate , u.password = :password  where u.id= :id")
     @Modifying
     public void updateUser(int roleId, int userLevelId, Date updateDate, int id, String password);
 
+    public User findUserById(int id);
     public List<User> findByUserLevelId(int id);
 }

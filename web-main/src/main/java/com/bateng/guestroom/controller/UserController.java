@@ -119,10 +119,6 @@ public class UserController extends BaseController {
         return  jsonObject.toJSONString();
     }
 
-
-
-
-
     public UserBiz getUserBiz() {
         return userBiz;
     }
