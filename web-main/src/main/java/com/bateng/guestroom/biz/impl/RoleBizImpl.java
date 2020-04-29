@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 @Service("roleBiz")
 public class RoleBizImpl implements RoleBiz {
@@ -52,8 +53,10 @@ public class RoleBizImpl implements RoleBiz {
     @Override
     @Transactional
     public void updateRole(Role role) {
-        roleDao.updateRole(role.getName(),role.getUpdateDate(),role.getId());
+        roleDao.save(role);
     }
+
+
 
     @Override
     public Role getRoleById(int id) {

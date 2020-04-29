@@ -16,7 +16,11 @@
                     <input name="updateDate" type="date" th:value="${role.updateDate}" value="" class="required readonly" maxlength="50"/>
                 </dd>
             </dl>
-
+            <dl class="nowrap">
+                <dt>权限选择：</dt>
+                <dd id="AccessOptions" style="height: 250px ;width: 200px; overflow: scroll">
+                </dd>
+            </dl>
             <!--<dl class="nowrap">
                 <dt>用户层级:</dt>
                 <dd>
@@ -49,5 +53,56 @@
         </div>
     </div>
 </form>
+<script type="text/javascript">
+    (function () {
+        $.ajax({
+            url: "ajax/menu/findMenus",
+            type: "post",
+            cache: false,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#AccessOptions").append("<ul class='tree treeFolder treeCheck expand'></ul>");
+                $.each(data,function (i,obj) {
+                    // obj生成对应li标签
+                    var html="<li id='d"+obj.id+"'><a tname='menus' tvalue='"+obj.id+"'>"+obj.name+"</a></li>";
+                    //分辨层次
+                    if(obj.pId==0){//是顶级标签
+                        $("#AccessOptions >ul ").append(html);
+                    }else{//不是顶级标签
+                        var pid="d"+obj.pId;//获取父亲ID
+                        var size=$("#"+pid).find("ul").size()//ul是否已经加了
+                        if(size==0)//没有加ul
+                            $("#"+pid).append("<ul></ul>");
+                        $("#"+pid).find("ul").append(html);   //找到父级标签
 
+                    }
+                })
+
+            }
+        });
+    })();
+    (function () {
+        $.ajax({
+            url: "guestroom/RoleMenusJson",
+            type: "post",
+            cache: false,
+            dataType: "json",
+            async: false,
+            success:function (data) {
+                $.each(data,function (i,obj) {
+                    // $("#d"+obj.id+" :checkbox").prop("checked",true);
+                    // console.log(obj)
+                    $("#d"+obj.id+" > div:eq(2)").addClass("ckbox checked")
+                    $("#d"+obj.id).find("input").attr("checked","checked");
+
+                })
+            }
+
+
+        })
+
+    })();
+
+</script>
 

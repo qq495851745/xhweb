@@ -6,6 +6,7 @@ import com.bateng.guestroom.biz.MenuBiz;
 import com.bateng.guestroom.dao.MenuDao;
 import com.bateng.guestroom.dao.UserDao;
 import com.bateng.guestroom.entity.Menu;
+import com.bateng.guestroom.entity.Role;
 import com.bateng.guestroom.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -46,6 +47,7 @@ public class MenuBizImpl implements MenuBiz {
 
     @Override
     public String findMenusByUserIdAjax(int id) {
+
         User user = userDao.getOne(id);
         user.getRole().getMenus().removeIf((t) -> t.getFlag()==2);
         return JSONObject.toJSONString(user.getRole().getMenus(), new SerializeFilter[]{
@@ -95,6 +97,20 @@ public class MenuBizImpl implements MenuBiz {
     @Override
     public String findMenuById(Integer id) {
         return menuDao.findMenuById(id);
+    }
+
+    @Override
+    public String findRoleMenusByRoleAjax(Role role) {
+        List<Menu> menus = role.getMenus();
+        return JSONObject.toJSONString(menus, new PropertyFilter() {
+            @Override
+            public boolean apply(Object o, String s, Object o1) {
+                if(s.equals("menus")||s.equals("roles"))
+                return false;
+                else
+                    return true;
+            }
+        }, SerializerFeature.DisableCircularReferenceDetect);
     }
 
 

@@ -6,39 +6,44 @@
     <base href="http://localhost"/>
     <script src="dwz/js/jquery-1.11.3.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        $(function(){
-            $.ajax({
-                url: "ajax/menu/findMenus",
-                type: "post",
-                cache: false,
-                dataType: "json",
-                async: false,
-                success: function (data) {
-                    $("#div").append("<ul class='tree treeFolder treeCheck expand' oncheck='test_check_tree'></ul>");
-                    $.each(data,function (i,obj) {
-                        //obj生成对应li标签
-                        var html = "<li id='u"+obj.id+"'><a>"+obj.name+"</a></li>";
-                        //分辨层次
-                        if (obj.pId==0){//是顶级标签
-                            $("div > ul").append(html);
-                        }else {//不是顶级标签
-                            var pid = "u"+obj.pId;//获取父亲ID
-                            var size = $("#"+pid).find("ul").size();//ul是否已经加了
-                            if(size == 0) {//没有加ul
-                                $("#" + pid).append("<ul></ul>");
-                            }
-                            $("#" + pid).find("ul").append(html);//找到父级标签
+        // $(function(){
+        //     $.ajax({
+        //         url: "ajax/menu/findMenus",
+        //         type: "post",
+        //         cache: false,
+        //         dataType: "json",
+        //         async: false,
+        //         success: function (data) {
+        //             $("#div").append("<ul></ul>");
+        //             $.each(data,function (i,obj) {
+        //                 //obj生成对应li标签
+        //                 var html = "<li id='u"+obj.id+"'><a>"+obj.name+"</a></li>";
+        //                 //分辨层次
+        //                 if (obj.pId==0){//是顶级标签
+        //                     $("div > ul").append(html);
+        //                 }else {//不是顶级标签
+        //                     var pid = "u"+obj.pId;//获取父亲ID
+        //                     var size = $("#"+pid).find("ul").size();//ul是否已经加了
+        //                     if(size == 0) {//没有加ul
+        //                         $("#" + pid).append("<ul></ul>");
+        //                     }
+        //                     $("#" + pid).find("ul").append(html);//找到父级标签
+        //
+        //                 }
+        //             })
+        //         }
+        //     });
+        // });
 
-                        }
-                    })
-                }
-            });
+        $("#div3").on("click",function(){
+            alert("ok");
         });
     </script>
 </head>
 <body>
-    <div id="div">
+    <div id="div3" style="height: 200px;width: 200px;border:solid 1px red">
         <p>添加菜单</p>
+        <input type="checkbox" value="aaa"/>test3
     </div>
 </body>
 </html>

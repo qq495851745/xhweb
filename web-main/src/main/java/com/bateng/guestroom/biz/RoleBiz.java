@@ -3,8 +3,10 @@ package com.bateng.guestroom.biz;
 import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Role;
 import com.bateng.guestroom.entity.User;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 public interface RoleBiz {
 
@@ -30,6 +32,7 @@ public interface RoleBiz {
     public List<Role> findRoleByName(Role role);
 
     public void updateRole(Role role);
+
 
     public Role getRoleById(int id);
 }

@@ -1,6 +1,7 @@
 package com.bateng.guestroom.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bateng.guestroom.biz.MenuBiz;
 import com.bateng.guestroom.biz.RoleBiz;
 import com.bateng.guestroom.config.constant.StatusCodeDWZ;
 import com.bateng.guestroom.entity.PageVo;
@@ -24,6 +25,10 @@ public class RoleController {
     @Autowired
     private RoleBiz roleBiz;
 
+    @Autowired
+    private MenuBiz menuBiz;
+
+    private String RoleMenusJson;
 
     @RequestMapping(value = "/role/ajax",method = RequestMethod.POST,produces = "application/json;charset=utf-8")
     @ResponseBody
@@ -85,6 +90,7 @@ public class RoleController {
     public String toEdit(@PathVariable("id") int id, Model model) {
         Role role = roleBiz.getRoleById(id);
         model.addAttribute("role",role);
+        RoleMenusJson = menuBiz.findRoleMenusByRoleAjax(role);
         return "role/role_edit";
     }
     //执行修改操作
@@ -107,4 +113,11 @@ public class RoleController {
     public void setRoleBiz(RoleBiz roleBiz) {
         this.roleBiz = roleBiz;
     }
+
+    @RequestMapping(value = "/RoleMenusJson" ,method = {RequestMethod.POST,RequestMethod.GET},produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String getRoleMenusJson(){
+        return RoleMenusJson;
+    }
+
 }

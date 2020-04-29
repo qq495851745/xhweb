@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface RoleDao extends JpaRepository<Role,Integer>, RoleRepository {
@@ -17,7 +18,4 @@ public interface RoleDao extends JpaRepository<Role,Integer>, RoleRepository {
 
     public List<Role> findAllByName(String name);
 
-    @Query("update Role r set r.name=:name,r.updateDate=:updateDate where r.id=:id")
-    @Modifying
-    public void updateRole(String name, Date updateDate, int id);
 }

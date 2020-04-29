@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.*;
 import com.bateng.guestroom.biz.MenuBiz;
 import com.bateng.guestroom.entity.Menu;
+import com.bateng.guestroom.entity.Role;
 import com.bateng.guestroom.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

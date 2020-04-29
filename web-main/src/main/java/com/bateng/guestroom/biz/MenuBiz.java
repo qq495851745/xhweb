@@ -1,6 +1,7 @@
 package com.bateng.guestroom.biz;
 
 import com.bateng.guestroom.entity.Menu;
+import com.bateng.guestroom.entity.Role;
 
 import java.util.List;
 
@@ -42,5 +43,11 @@ public interface MenuBiz {
      * 通过Id查找name
      * */
     public String findMenuById(Integer id);
+
+    /**
+     * 通过角色获取roleMenu
+     * @return
+     */
+    public String findRoleMenusByRoleAjax(Role role);
 
 }
