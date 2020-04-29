@@ -5,7 +5,7 @@
     </form>
 </div>
 <div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid"
-     xmlns:th="http://www.thymeleaf.org" id="user_index_pageContent">
+     xmlns:th="http://www.thymeleaf.org" id="user_role_index_pageContent">
     <div class="panelBar">
         <ul class="toolBar">
 
@@ -15,7 +15,7 @@
 
         </ul>
     </div>
-    <table class="table" width="100%" layoutH="100" id="bt_user_table" >
+    <table class="table" width="100%" layoutH="100" id="bt_user_role_table" >
         <thead>
         <tr >
             <th width="80">序号</th>
@@ -33,13 +33,13 @@
          </tr>
         </tbody>
         <script type="text/javascript">
-            $("#bt_user_table").find("th,td").css({"text-align": "center"});
+            $("#bt_user_role_table").find("th,td").css({"text-align": "center"});
         </script>
     </table>
     <div class="panelBar">
         <div class="pages">
             <span>显示</span>
-            <select id="bt_user_sel" class="combox" name="numPerPage"
+            <select id="bt_user_role_sel" class="combox" name="numPerPage"
                     onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
                 <option value="10">10</option>
                 <option value="20">20</option>
@@ -59,14 +59,14 @@
     $(window).trigger("resize");
     //消除分页错误
     setTimeout(function () {
-        var len = $("#bt_user_sel").parent().find("a").size();
+        var len = $("#bt_user_role_sel").parent().find("a").size();
         if (!len)
             setTimeout(arguments.callee, 100);
         else {
-            displayText({"relId":"user_index_pageContent"});
-            $("#bt_user_sel").css({display: "block"});
-            $("#bt_user_sel").prev().css({display: "none"});
-            $("#bt_user_sel").val($("#bt_user_sel").parents(".unitBox:first").find("input[name=\"numPerPage\"]").val());
+            displayText({"relId":"user_role_index_pageContent"});
+            $("#bt_user_role_sel").css({display: "block"});
+            $("#bt_user_role_sel").prev().css({display: "none"});
+            $("#bt_user_role_sel").val($("#bt_user_role_sel").parents(".unitBox:first").find("input[name=\"numPerPage\"]").val());
 
         }
     }, 1);
