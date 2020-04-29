@@ -93,8 +93,17 @@
                 $.each(data,function (i,obj) {
                     // $("#d"+obj.id+" :checkbox").prop("checked",true);
                     // console.log(obj)
-                    $("#d"+obj.id+" > div:eq(2)").addClass("ckbox checked")
-                    $("#d"+obj.id).find("input").attr("checked","checked");
+                    // $("#d"+obj.id+" > div:eq(2)").addClass("ckbox checked");
+                    // $("#d"+obj.id).find("input").attr("checked","checked");
+
+                    var handler = window.setInterval(function(){
+                         console.log(new Date())
+                        // $("#d"+obj.id+" > div:eq(2)").addClass("ckbox checked");
+                        $("#d"+obj.id).find("input").attr("checked","checked");
+                        if($("#d"+obj.id).find("input").size()!=0)// 判断标签已经加载
+                            window.clearInterval(handler);  //停止定时器
+                        $("#d"+obj.id).find("input").parent().addClass("checked")
+                    },1)
 
                 })
             }
