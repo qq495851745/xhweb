@@ -18,4 +18,6 @@ public interface RoleDao extends JpaRepository<Role,Integer>, RoleRepository {
 
     public List<Role> findAllByName(String name);
 
+    public int findRoleIdByName(String name);
+
 }

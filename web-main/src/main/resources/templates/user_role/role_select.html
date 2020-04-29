@@ -1,0 +1,24 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<h2 class="contentTitle">选择角色</h2>
+<div id="AccessOptions">
+</div>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: "ajax/role/findRole",
+            type: "post",
+            cache: false,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#AccessOptions").append("<ul class=\"tree expand\"></ul>");
+                $.each(data,function (i,obj) {
+                    var html = "<li id='d"+obj.id+"'><a href=\"javascript:\" onclick=\"$.bringBack({id:'"+obj.id+"',name:'"+obj.name+"'})\">"+obj.name+"</a></li>";
+                    //var html="<li id='d"+obj.id+"'><a tname='role' tvalue='"+obj.id+"'>"+obj.name+"</a></li>";
+                    $("#AccessOptions >ul").append(html);
+                })
+
+            }
+        });
+    });
+</script>

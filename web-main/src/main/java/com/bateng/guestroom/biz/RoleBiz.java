@@ -36,4 +36,5 @@ public interface RoleBiz {
 
 
     public Role getRoleById(int id);
+
 }

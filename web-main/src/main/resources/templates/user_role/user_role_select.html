@@ -4,13 +4,20 @@
     <input type="hidden" name="id" value="" th:value="${user.id}"/>
     <div class="pageFormContent" layoutH="97">
         <dl class="nowrap">
-            <dt>角色名：</dt>
+            <dt>用户名：</dt>
             <dd>
                 <input name="name" type="text" th:value="${user.username}" value="" class="required readonly" maxlength="50"/>
             </dd>
         </dl>
-    <div id="AccessOptions" ,style=" float:left; display:block; margin:10px; overflow:auto; width:200px; height:200px; overflow:auto; border:solid 1px #CCC; line-height:21px; background:#FFF;">
-    <p>选择角色(唯一)</p>
+    <div class="pageFormContent" layoutH="97">
+        <dl class="nowrap">
+            <dt>角色：</dt>
+            <dd>
+                <input id="role.id" name="role.id" th:value="${user.getRole().id}" type="hidden"/>
+                <input id="role.name" class="required" name="role.name" type="text" th:value="${user.getRole().getName()}" readonly />
+                <a class="btnLook" href="/guestroom/user_role/selectRoleName" lookupGroup="role">选择角色</a>
+            </dd>
+        </dl>
 </div>
     <div class="formBar">
         <ul>
@@ -32,23 +39,3 @@
     </div>
     </div>
 </form>
-<script type="text/javascript">
-    $(function () {
-        $.ajax({
-            url: "ajax/role/findRole",
-            type: "post",
-            cache: false,
-            dataType: "json",
-            async: false,
-            success: function (data) {
-                $("#AccessOptions").append("<ul class=\"tree treeFolder treeCheck expand\" oncheck=\"test_check_tree\"></ul>");
-                $.each(data,function (i,obj) {
-                    var html="<li id='d"+obj.id+"'><a tname='role' tvalue='"+obj.id+"'>"+obj.name+"</a></li>";
-                    // ("#'d"+obj.id+"'").find("input type:checkbox").attr("type:radio");
-                    $("#AccessOptions >ul").append(html);
-                })
-
-            }
-        });
-    });
-</script>

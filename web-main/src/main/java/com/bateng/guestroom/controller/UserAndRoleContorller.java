@@ -1,6 +1,7 @@
 package com.bateng.guestroom.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.bateng.guestroom.biz.RoleBiz;
 import com.bateng.guestroom.biz.UserBiz;
 import com.bateng.guestroom.config.constant.StatusCodeDWZ;
 import com.bateng.guestroom.entity.PageVo;
@@ -46,4 +47,10 @@ public class UserAndRoleContorller {
         jsonObject.put("callbackType","closeCurrent");
         return  jsonObject.toJSONString();
     }
+
+    @RequestMapping(value = "/user_role/selectRoleName",method = {RequestMethod.GET})
+    public String selectRoleName() {
+        return "user_role/role_select";
+    }
+
 }
