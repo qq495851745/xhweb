@@ -44,7 +44,7 @@
                 $("#AccessOptions").append("<ul class=\"tree treeFolder treeCheck expand\" oncheck=\"test_check_tree\"></ul>");
                 $.each(data,function (i,obj) {
                     var html="<li id='d"+obj.id+"'><a tname='role' tvalue='"+obj.id+"'>"+obj.name+"</a></li>";
-                    ("#'d"+obj.id+"'").find("input type:checkbox").attr("type:radio");
+                    // ("#'d"+obj.id+"'").find("input type:checkbox").attr("type:radio");
                     $("#AccessOptions >ul").append(html);
                 })
 
