@@ -2,6 +2,7 @@
 <form method="post" action="guestroom/role" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);" xmlns:th="http://www.thymeleaf.org">
     <input type="hidden" name="_method" value="PUT"/>
     <input type="hidden" name="id" value="" th:value="${role.id}"/>
+    <input type="hidden" name="createDate" value="" th:value="${role.createDate}"/>
     <div class="pageContent">
         <div class="pageFormContent" layoutH="97">
             <dl class="nowrap">
@@ -81,6 +82,9 @@
 
             }
         });
+        window.setInterval(function () {
+            $(".indeterminate").find("input").attr("checked","checked");
+        },100)
     })();
     (function () {
         $.ajax({
@@ -95,22 +99,20 @@
                     // console.log(obj)
                     // $("#d"+obj.id+" > div:eq(2)").addClass("ckbox checked");
                     // $("#d"+obj.id).find("input").attr("checked","checked");
-
                     var handler = window.setInterval(function(){
-                         console.log(new Date())
-                        // $("#d"+obj.id+" > div:eq(2)").addClass("ckbox checked");
-                        $("#d"+obj.id).find("input").attr("checked","checked");
-                        if($("#d"+obj.id).find("input").size()!=0)// 判断标签已经加载
+                        if($("#d"+obj.id).find("input").size()!=0){// 判断标签已经加载
+                            console.log(obj.id);
+                            if($("#d"+obj.id+">div").find("input").size() != 0){
+                                $("#d"+obj.id+">div").find("input").attr("checked","checked");
+                                $("#d"+obj.id+">div").find("input").parent("div").removeClass("unchecked").addClass("checked");
+                            }
+                            // $("#d"+obj.id).find("input").parent("div").removeClass("unchecked").addClass("indeterminate")
                             window.clearInterval(handler);  //停止定时器
-                        $("#d"+obj.id).find("input").parent().addClass("checked")
-                    },1)
-
+                        }
+                    },1);
                 })
             }
-
-
         })
-
     })();
 
 </script>
