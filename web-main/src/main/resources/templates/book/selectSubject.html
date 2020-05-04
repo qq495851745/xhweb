@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<body>
+    <h2 class="contentTitle">所有类目</h2>
+    <div id="SubjectOptions"></div>
+</body>
+</html>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: "ajax/subject/findSubject",
+            type: "post",
+            cache: false,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#SubjectOptions").append("<ul class=\"tree treeFolder\"></ul>");
+                $.each(data,function (i,obj) {
+                    var html = "<li id='d"+obj.id+"'><a href=\"javascript:\" onclick=\"$.bringBack({id:'"+obj.id+"',name:'"+obj.name+"'})\">"+obj.name+"</a></li>";
+                    $("#SubjectOptions >ul").append(html);
+                })
+            }
+        });
+    });
+</script>
