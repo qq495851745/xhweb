@@ -15,7 +15,10 @@ public class WebConfig {
     @Value("${photo.ftp.url}")
     private  String photoUrl;
 
-    public String getPhotoUrl() {
+    @Value("${book.file.path}")
+    private String bookPath;
+
+  public String getPhotoUrl() {
         return photoUrl;
     }
 
@@ -29,5 +32,13 @@ public class WebConfig {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getBookPath() {
+        return bookPath;
+    }
+
+    public void setBookPath(String bookPath) {
+        this.bookPath = bookPath;
     }
 }
