@@ -1,19 +1,14 @@
 package com.bateng.guestroom.biz.impl;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.PropertyFilter;
-import com.alibaba.fastjson.serializer.SerializeFilter;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.bateng.guestroom.biz.BookUploadBiz;
 import com.bateng.guestroom.dao.BookUploadDao;
-import com.bateng.guestroom.dao.SubjectDao;
 import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.PageVo;
-import com.bateng.guestroom.entity.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 张伟金
@@ -40,5 +35,21 @@ public class BookUploadBizImpl implements BookUploadBiz {
     public void uploadBook(Book book) {
         bookUploadDao.save(book);
     }
+
+    @Override
+    public void deleteBookById(int bid) {
+        bookUploadDao.deleteById(bid);
+    }
+
+    @Override
+    public Book findBookById(int bid) {
+        return bookUploadDao.getOne(bid);
+    }
+
+    @Override
+    public void updateBook(Book book) {
+        bookUploadDao.save(book);
+    }
+
 
 }

@@ -10,8 +10,8 @@
                     </td>
                     <td>
                         类目:
-                        <select name="flag" id="subject_select">
-
+                        <select name="subject.id" id="subject_select">
+                            <option value="-1">全部</option>
                         </select>
                         <script type="text/javascript">
                              $.ajax({
@@ -21,14 +21,16 @@
                                  dataType:"json",
                                  success:function (data) {
                                        $.each(data,function (i,obj) {
-                                            $("#subject_select").append(" <option value=\""+obj.id+"\">"+obj.name+"</option>");
+                                            $("#subject_select").append(" <option value="+obj.id+">"+obj.name+"</option>");
                                        })
                                  }
                              })
                          </script>
                         <script th:inline="javascript">
-                            var obj=[[${book}]];
-                            $("#subject_select").val(obj.flag);
+                            var obj = [[${subject}]];
+                            if(obj !== null){
+                                $("#subject_select").val(obj.id);
+                            }
                         </script>
                     </td>
                     <td>
@@ -49,6 +51,10 @@
         <ul class="toolBar">
             <li><a class="add" href="guestroom/bookUpload/toUpload" target="navTab"
                    mask="true"><span>上传</span></a></li>
+            <li><a class="edit" href="guestroom/bookUpload/toUpdate/{sid_obj}" target="navTab"
+                   mask="true"><span>编辑</span></a></li>
+            <li><a class="delete" href="guestroom/bookUpload/delete/{sid_obj}"  _method="delete" target="ajaxTodo"
+                   mask="true" title="确定要删除吗?"><span>删除</span></a></li>
             <li class="line">line</li>
         </ul>
     </div>

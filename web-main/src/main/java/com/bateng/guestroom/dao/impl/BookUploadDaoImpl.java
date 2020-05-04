@@ -27,6 +27,16 @@ public class BookUploadDaoImpl implements BookUploadRepository {
         StringBuilder sb=new StringBuilder("from Book b where 1=1 ");
         Map<String,Object> paramsMap=new HashMap<String, Object>();//查询参数
 
+        if(book!=null && book.getName()!=null && !book.getName().equals("")){
+            paramsMap.put("name","%"+book.getName()+"%");
+            sb.append("and b.name like :name ");
+        }
+        if(book!=null && book.getSubject()!=null && book.getSubject().getId()!=null
+            && book.getSubject().getId()!=-1){
+            paramsMap.put("s_id",book.getSubject().getId());
+            sb.append("and b.subject.id = :s_id ");
+        }
+
         Query query=entityManager.createQuery(sb.toString());
 
         //查询对象赋值

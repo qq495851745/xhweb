@@ -2,9 +2,9 @@ package com.bateng.guestroom.biz;
 
 import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.PageVo;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author 张伟金
@@ -31,4 +31,10 @@ public interface BookUploadBiz {
      * @param book
      */
     public void uploadBook(Book book);
+
+    public void deleteBookById(int bid);
+
+    public Book findBookById(int bid);
+
+    public void updateBook(Book book);
 }

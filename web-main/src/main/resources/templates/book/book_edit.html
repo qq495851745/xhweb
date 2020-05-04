@@ -1,0 +1,63 @@
+<h2 class="contentTitle">图书编辑</h2>
+<form method="post" action="guestroom/bookUpload/doUpdate" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);" xmlns:th="http://www.thymeleaf.org">
+    <input type="hidden" name="_method" value="PUT"/>
+    <input type="hidden" name="id" value="" th:value="${book.id}"/>
+    <div class="pageContent">
+        <div class="pageFormContent" layoutH="97">
+            <dl class="nowrap">
+                <dt>图书名：</dt>
+                <dd>
+                    <input name="name" type="text" th:value="${book.name}" value="" class="required" maxlength="50"/>
+                </dd>
+            </dl>
+
+            <dl class="nowrap">
+                <dt>作者：</dt>
+                <dd>
+                    <input name="author" type="text" th:value="${book.author}" />
+                </dd>
+
+            </dl>
+            <dl class="nowrap">
+                <dt>描述：</dt>
+                <dd>
+                    <input name="desc" type="text" th:value="${book.desc}" />
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt>类目选择：</dt>
+                <dd>
+                    <input id="subject.id" name="subject.id" th:value="${subject.getId()}" type="hidden"/>
+                    <input type="text" class="required textInput" id="subject.name" name="subject.name" th:value="${subject.getName()}" readonly />
+                    <a class="btnLook" href="/guestroom/bookUpload/toSelectSubject" lookupGroup="subject">选择类目</a>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt>文件路径：</dt>
+                <dd>
+                    <input name="path" type="file" id="file" maxlength="50" th:value="${book.path}"/>
+                </dd>
+            </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">更新</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button class="close" type="button">关闭</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
+
+

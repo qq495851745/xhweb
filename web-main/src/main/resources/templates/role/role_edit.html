@@ -4,6 +4,7 @@
     <input type="hidden" name="_method" value="PUT"/>
     <input type="hidden" name="id" value="" th:value="${role.id}"/>
     <input type="hidden" name="createDate" value="" th:value="${role.createDate}"/>
+    <input type="hidden" name="updateDate" value="" th:value="${role.updateDate}"/>
     <div class="pageContent">
         <div class="pageFormContent" layoutH="97">
             <dl class="nowrap">
@@ -11,13 +12,6 @@
                 <dd>
                     <input name="name" type="text" th:value="${role.name}" value="" class="required readonly"
                            maxlength="50"/>
-                </dd>
-            </dl>
-            <dl class="nowrap">
-                <dt>更新时间：</dt>
-                <dd>
-                    <input name="updateDate" type="date" th:value="${role.updateDate}" value=""
-                           class="required readonly" maxlength="50"/>
                 </dd>
             </dl>
             <dl class="nowrap">
