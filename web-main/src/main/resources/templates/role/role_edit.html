@@ -91,7 +91,6 @@
             async: false,
             success: function (data) {
                 var handler = window.setInterval(function () {
-                    console.log(new Date())
                     if ($("#d" + data[0].id).find("input").size() != 0) {// 判断标签已经加载
                         window.clearInterval(handler);  //停止定时器
                         $.each(data, function (i, obj) {

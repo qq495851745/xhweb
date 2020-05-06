@@ -105,6 +105,12 @@ function displayText(json) {
             }
             var $edit = $("#" + json["relId"]).find("a.edit");
                 $edit.find("span").html("修改/查看" + "<b style='color: red'>" + text + "</b>");
+
+
+            //配置还原操作
+            var $recycle=$("#" + json["relId"]).find("a.recycle");
+            $recycle.find("span").html("还原" + "<b style='color: red'>" + text + "</b>");
+
             text = $edit.attr("href");
             text = text.replace(/\/[^\/]+$/g, "/" + id);
             $edit.attr("href", text); //修改href属性
