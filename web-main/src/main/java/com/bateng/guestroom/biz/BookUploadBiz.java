@@ -37,4 +37,6 @@ public interface BookUploadBiz {
     public Book findBookById(int bid);
 
     public void updateBook(Book book);
+
+    public PageVo<Book> findRecycleBookByPage(PageVo<Book> pageVo,Book book);
 }

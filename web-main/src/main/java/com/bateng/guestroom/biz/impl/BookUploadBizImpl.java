@@ -51,5 +51,10 @@ public class BookUploadBizImpl implements BookUploadBiz {
         bookUploadDao.save(book);
     }
 
+    @Override
+    public PageVo<Book> findRecycleBookByPage(PageVo<Book> pageVo, Book book) {
+        return bookUploadDao.findRecycleBookByPage(pageVo,book);
+    }
+
 
 }

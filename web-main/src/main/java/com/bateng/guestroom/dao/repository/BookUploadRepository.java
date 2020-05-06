@@ -9,4 +9,6 @@ import com.bateng.guestroom.entity.PageVo;
  */
 public interface BookUploadRepository {
     public PageVo<Book> findBookByPage(PageVo<Book> pageVo, Book book);
+
+    public PageVo<Book> findRecycleBookByPage(PageVo<Book> pageVo, Book book);
 }

@@ -1,6 +1,6 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <h2 class="contentTitle">图书上传</h2>
-<form method="post" action="/guestroom/bookUpload/upload" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);">
+<form method="post" action="/guestroom/bookUpload/upload" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);" enctype="multipart/form-data">
     <div class="pageContent">
         <div class="pageFormContent" layoutH="98">
             <dl class="nowrap">
@@ -32,7 +32,7 @@
             <dl class="nowrap">
                 <dt>文件路径：</dt>
                 <dd>
-                    <input name="path" type="file" id="file" value="" maxlength="50"/>
+                    <input name="file" type="file" id="file" value="" />
                 </dd>
             </dl>
         </div>

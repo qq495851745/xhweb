@@ -1,5 +1,6 @@
 <div class="pageHeader" style="border:1px #B8D0D6 solid" xmlns:th="http://www.thymeleaf.org">
-    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="/guestroom/bookUpload/index" method="post">
+    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="/guestroom/bookRecycle/index" method="post">
+        <input type="hidden" name="_method" value="PUT"/>
         <input type="hidden" name="pageNum" value="1" th:value="${pageVo.pageNum}"/>
         <input type="hidden" name="numPerPage" value="" th:value="${pageVo.numPerPage}"/>
         <div class="searchBar">
@@ -10,7 +11,7 @@
                     </td>
                     <td>
                         类目:
-                        <select name="subject.id" id="subject_select">
+                        <select name="subject.id" id="recycle_subject_select">
                             <option value="-1">全部</option>
                         </select>
                         <script type="text/javascript">
@@ -21,7 +22,7 @@
                                  dataType:"json",
                                  success:function (data) {
                                        $.each(data,function (i,obj) {
-                                            $("#subject_select").append(" <option value="+obj.id+">"+obj.name+"</option>");
+                                            $("#recycle_subject_select").append(" <option value="+obj.id+">"+obj.name+"</option>");
                                        })
                                  }
                              })
@@ -46,15 +47,12 @@
     </form>
 </div>
 <div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid"
-     xmlns:th="http://www.thymeleaf.org" id="book_index_pageContent">
+     xmlns:th="http://www.thymeleaf.org" id="bookRecycle_index_pageContent">
     <div class="panelBar">
         <ul class="toolBar">
-            <li><a class="add" href="guestroom/bookUpload/toUpload" target="navTab"
-                   mask="true"><span>上传</span></a></li>
-            <li><a class="edit" href="guestroom/bookUpload/toUpdate/{sid_obj}" target="navTab"
-                   mask="true"><span>编辑</span></a></li>
-            <li><a class="delete" href="guestroom/bookUpload/delete/{sid_obj}" target="ajaxTodo"
+            <li><a class="delete" href="guestroom/book/recycleDelete/{sid_obj}" _method="delete" target="ajaxTodo"
                    mask="true" title="确定要删除吗?"><span>删除</span></a></li>
+            <li><a class="edit" href="/guestroom/book/restore/{sid_obj}" target="ajaxTodo" mask="true"><span>还原</span></a></li>
             <li class="line">line</li>
         </ul>
     </div>
@@ -111,7 +109,7 @@
         if (!len)
             setTimeout(arguments.callee, 100);
         else {
-            displayText({"relId":"book_index_pageContent"});
+            displayText({"relId":"bookRecycle_index_pageContent"});
             $("#bt_book_sel").css({display: "block"});
             $("#bt_book_sel").prev().css({display: "none"});
             $("#bt_book_sel").val($("#bt_book_sel").parents(".unitBox:first").find("input[name=\"numPerPage\"]").val());

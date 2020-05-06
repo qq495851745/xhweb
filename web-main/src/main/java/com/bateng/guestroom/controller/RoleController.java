@@ -26,7 +26,6 @@ public class RoleController {
 
     @Autowired
     private RoleBiz roleBiz;
-    private UserBiz userBiz;
 
     @Autowired
     private MenuBiz menuBiz;

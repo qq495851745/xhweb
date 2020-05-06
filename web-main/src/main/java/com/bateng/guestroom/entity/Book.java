@@ -26,6 +26,39 @@ public class Book {
     @Column(name = "bpath")
     private String path;
 
+    @Column(name = "file_name")
+    private String fileName;
+
+    @Column(name = "suffix_name")
+    private String suffixName;
+
+    @Column(name = "is_delete")
+    private Boolean deleteFlag;
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getSuffixName() {
+        return suffixName;
+    }
+
+    public void setSuffixName(String suffixName) {
+        this.suffixName = suffixName;
+    }
+
+    public Boolean getDeleteFlag() {
+        return deleteFlag;
+    }
+
+    public void setDeleteFlag(Boolean deleteFlag) {
+        this.deleteFlag = deleteFlag;
+    }
+
     public int getId() {
         return id;
     }

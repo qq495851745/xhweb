@@ -3,18 +3,20 @@ package com.bateng.guestroom.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.bateng.guestroom.biz.BookUploadBiz;
 import com.bateng.guestroom.config.constant.StatusCodeDWZ;
-import com.bateng.guestroom.config.model.WebConfig;
+import com.bateng.guestroom.config.controller.BaseController;
 import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @author 张伟金
@@ -22,7 +24,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/guestroom")
-public class BookUploadController {
+public class BookUploadController extends BaseController  {
 
     @Autowired
     private BookUploadBiz bookUploadBiz;
@@ -57,14 +59,31 @@ public class BookUploadController {
 
     @RequestMapping(value = "/bookUpload/doUpdate",method = RequestMethod.PUT,produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String doEdit(Book book){
-        String path = book.getPath();
-        WebConfig config = new WebConfig();
-        config.setBookPath("/action/");
-        path = config.getBookPath() + path;
-        book.setPath(path);
-        bookUploadBiz.updateBook(book);
+    public String doEdit(Book book,@RequestParam("file") MultipartFile file){
         JSONObject jsonObject = new JSONObject();
+        if(file.isEmpty()){
+            jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
+            jsonObject.put("message", "文件为空或不存在");
+        }else{
+            String uuid = UUID.randomUUID().toString();
+            String fileName = file.getOriginalFilename();
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            String filePath = getWebConfig().getBookPath()+"all/";
+            File dest = new File(filePath+uuid+suffixName);
+            if(!dest.getParentFile().exists()){
+                dest.getParentFile().mkdirs();
+            }
+            try {
+                file.transferTo(dest);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            book.setPath("all/"+dest.getName());
+            book.setFileName(fileName);
+            book.setSuffixName(suffixName);
+            book.setDeleteFlag(false);
+        }
+        bookUploadBiz.updateBook(book);
         jsonObject.put("statusCode", StatusCodeDWZ.OK);
         jsonObject.put("message", "更新完成!");
         jsonObject.put("navTabId", "w_35");
@@ -74,18 +93,30 @@ public class BookUploadController {
 
     @RequestMapping(value = "/bookUpload/upload", method =RequestMethod.POST,produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String upload(Book book) {
+    public String upload(Book book , @RequestParam("file") MultipartFile file){
         JSONObject jsonObject = new JSONObject();
         List<Book> books = bookUploadBiz.findBookByName(book);
-        if (books.size() > 0) {//这个书户已经存在
+        if (books.size() > 0 || file.isEmpty()) {//这个书户已经存在
             jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
-            jsonObject.put("message", "当前书名已经存在，不能使用");
+            jsonObject.put("message", "当前书名已经存在或文件为空、不存在，不能使用");
         } else {
-            String path = book.getPath();
-            WebConfig config = new WebConfig();
-            config.setBookPath("/action/");
-            path = config.getBookPath() + path;
-            book.setPath(path);
+            String uuid = UUID.randomUUID().toString();
+            String fileName = file.getOriginalFilename();
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            String filePath = getWebConfig().getBookPath()+"all/";
+            File dest = new File(filePath+uuid+suffixName);
+            if(!dest.getParentFile().exists()){
+                dest.getParentFile().mkdirs();
+            }
+            try {
+                file.transferTo(dest);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            book.setPath("all/"+dest.getName());
+            book.setFileName(fileName);
+            book.setSuffixName(suffixName);
+            book.setDeleteFlag(false);
             bookUploadBiz.uploadBook(book);
             jsonObject.put("statusCode", StatusCodeDWZ.OK);
             jsonObject.put("callbackType", "closeCurrent");//关闭当前标签页
@@ -95,16 +126,16 @@ public class BookUploadController {
         return jsonObject.toJSONString();
     }
 
-    @RequestMapping(value = "/bookUpload/delete/{id}",method = RequestMethod.DELETE,produces = "application/json;charset=utf-8")
+    @RequestMapping(value = "/bookUpload/delete/{id}",method = RequestMethod.GET,produces = "application/json;charset=utf-8")
     @ResponseBody
     public String doDelete(@PathVariable("id") int bid){
-        bookUploadBiz.deleteBookById(bid);
+        Book book = bookUploadBiz.findBookById(bid);
+        book.setDeleteFlag(true);
+        bookUploadBiz.updateBook(book);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("statusCode", StatusCodeDWZ.OK);
         jsonObject.put("navTabId", "w_35");
-        jsonObject.put("message", "删除成功");
+        jsonObject.put("message", "已放入回收站");
         return  jsonObject.toJSONString();
     }
-
-
 }

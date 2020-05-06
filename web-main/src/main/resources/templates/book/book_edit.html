@@ -1,5 +1,5 @@
 <h2 class="contentTitle">图书编辑</h2>
-<form method="post" action="guestroom/bookUpload/doUpdate" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);" xmlns:th="http://www.thymeleaf.org">
+<form method="post" action="guestroom/bookUpload/doUpdate" enctype="multipart/form-data" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);" xmlns:th="http://www.thymeleaf.org">
     <input type="hidden" name="_method" value="PUT"/>
     <input type="hidden" name="id" value="" th:value="${book.id}"/>
     <div class="pageContent">
@@ -35,7 +35,7 @@
             <dl class="nowrap">
                 <dt>文件路径：</dt>
                 <dd>
-                    <input name="path" type="file" id="file" maxlength="50" th:value="${book.path}"/>
+                    <input name="file" type="file" id="file" />
                 </dd>
             </dl>
         </div>

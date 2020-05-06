@@ -24,7 +24,7 @@ public class BookUploadDaoImpl implements BookUploadRepository {
 
     @Override
     public PageVo<Book> findBookByPage(PageVo<Book> pageVo, Book book) {
-        StringBuilder sb=new StringBuilder("from Book b where 1=1 ");
+        StringBuilder sb=new StringBuilder("from Book b where 1=1 and b.deleteFlag=false ");
         Map<String,Object> paramsMap=new HashMap<String, Object>();//查询参数
 
         if(book!=null && book.getName()!=null && !book.getName().equals("")){
@@ -33,6 +33,43 @@ public class BookUploadDaoImpl implements BookUploadRepository {
         }
         if(book!=null && book.getSubject()!=null && book.getSubject().getId()!=null
             && book.getSubject().getId()!=-1){
+            paramsMap.put("s_id",book.getSubject().getId());
+            sb.append("and b.subject.id = :s_id ");
+        }
+
+        Query query=entityManager.createQuery(sb.toString());
+
+        //查询对象赋值
+        for(Map.Entry<String,Object> param:paramsMap.entrySet()){
+            query.setParameter(param.getKey(),param.getValue());
+        }
+
+
+        //组装PageVo对象
+        int max=query.getResultList().size();//数据总数
+        int page=max%pageVo.getNumPerPage()==0?max/pageVo.getNumPerPage():(max/pageVo.getNumPerPage()+1);//总页数
+
+        query.setMaxResults(pageVo.getNumPerPage());
+        query.setFirstResult((pageVo.getPageNum()-1)*pageVo.getNumPerPage());
+
+
+        pageVo.setTotalPages(page);
+        pageVo.setTotalCount(max);
+        pageVo.setContents(query.getResultList());
+        return pageVo;
+    }
+
+    @Override
+    public PageVo<Book> findRecycleBookByPage(PageVo<Book> pageVo, Book book) {
+        StringBuilder sb=new StringBuilder("from Book b where 1=1 and b.deleteFlag=true ");
+        Map<String,Object> paramsMap=new HashMap<String, Object>();//查询参数
+
+        if(book!=null && book.getName()!=null && !book.getName().equals("")){
+            paramsMap.put("name","%"+book.getName()+"%");
+            sb.append("and b.name like :name ");
+        }
+        if(book!=null && book.getSubject()!=null && book.getSubject().getId()!=null
+                && book.getSubject().getId()!=-1){
             paramsMap.put("s_id",book.getSubject().getId());
             sb.append("and b.subject.id = :s_id ");
         }
