@@ -1,0 +1,85 @@
+<div xmlns:th="http://www.thymeleaf.org" >
+<div class="pageHeader" style="border:1px #B8D0D6 solid">
+    <form id="pagerForm" onsubmit="return divSearch(this, 'jbsxBox');" action="/guestroom/subject/subjectIndex/" th:attr="action='/guestroom/subject/subjectIndex/'+${pid}" method="post">
+<!--        <input type="hidden" name="pageNum" value="1" />-->
+<!--        <input type="hidden" name="numPerPage" value="${model.numPerPage}" />-->
+<!--        <input type="hidden" name="orderField" value="${param.orderField}" />-->
+<!--        <input type="hidden" name="orderDirection" value="${param.orderDirection}" />-->
+        <input type="hidden" name="pageNum" value="1" th:value="${pageVo.pageNum}"/>
+        <input type="hidden" name="numPerPage" value="" th:value="${pageVo.numPerPage}"/>
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        类别名：<input type="text" name="name" value="" th:value="${subject.name}" />
+                    </td>
+                    <td><div class="buttonActive"><div class="buttonContent"><button type="submit">检索</button></div></div></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+
+<div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid"  xmlns:th="http://www.thymeleaf.org" id="subject_index_pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="add" href="/guestroom/subject/toAdd/" target="dialog" mask="true"><span>添加类别</span></a></li>
+            <li><a class="delete" href="/guestroom/subject/delete/{sid_obj}" _method="delete" target="ajaxTodo" title="确定要删除吗?"><span>删除</span></a></li>
+            <li><a class="edit" href="/guestroom/subject/update/{sid_obj}" target="dialog" mask="true"><span>修改</span></a></li>
+            <li class="line">line</li>
+        </ul>
+    </div>
+    <table class="table" width="99%" layoutH="260" rel="jbsxBox" id="bt_subject_table">
+        <thead>
+            <tr>
+                <th width="100">类别编号</th>
+                <th width="150">类别姓名</th>
+                <th width="350">说明</th>
+            </tr>
+        </thead>
+        <tbody>
+<!--        ${pageVo.contents}-->
+            <tr target="sid_obj" th:each="subjects:${pageVo.contents}" th:attr="rel=${subjects.id}" >
+                <td th:text="${subjectsStat.index+1}">1</td>
+                <td th:text="${subjects.name}">1</td>
+                <td th:text="${subjects.desc}">1</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="panelBar">
+        <div class="pages">
+            <span>显示</span>
+            <select id="bt_subject_sel" class="combox" name="numPerPage"
+                    onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span th:text="${'条，共'+pageVo.totalCount+'条'}">条，共50条</span>
+        </div>
+
+        <div th:attr="pageNumShown=${pageVo.getTotalPages()>=5?5:pageVo.totalPages}, currentPage=${pageVo.pageNum},totalCount=${pageVo.totalCount},numPerPage=${pageVo.numPerPage}"
+             class="pagination" targettype="navTab"  totalCount="100" numPerPage="20" pageNumShown="5" currentPage="2"></div>
+
+    </div>
+</div>
+</div>
+<script type="text/javascript">
+
+    $(window).trigger("resize");
+    //消除分页错误
+    setTimeout(function () {
+        var len = $("#bt_subject_sel").parent().find("a").size();
+        if (!len)
+            setTimeout(arguments.callee, 100);
+        else {
+            displayText({"relId":"subject_index_pageContent"});
+            $("#bt_subject_sel").css({display: "block"});
+            $("#bt_subject_sel").prev().css({display: "none"});
+            $("#bt_subject_sel").val($("#bt_subject_sel").parents(".unitBox:first").find("input[name=\"numPerPage\"]").val());
+
+        }
+    }, 1);
+
+
+</script>
