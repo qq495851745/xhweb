@@ -1,9 +1,10 @@
 package com.bateng.guestroom.dao.impl;
 
+import com.bateng.guestroom.dao.SubjectDao;
 import com.bateng.guestroom.dao.repository.SubjectRepository;
+import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Subject;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,16 +12,26 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository("subjectRepository")
 public class SubjectDaoImpl implements SubjectRepository {
-
     @PersistenceContext
     private EntityManager entityManager;
-    @Override
-    public PageVo<Subject> findRoleByPage(PageVo<Subject> pageVo, Subject subject) {
-        StringBuilder sb=new StringBuilder("from Subject s where 1=1 ");
-        Map<String,Object> paramsMap=new HashMap<String, Object>();//查询参数
 
+
+    @Override
+    public PageVo<Subject> findSubjectByPage(PageVo<Subject> pageVo, Subject subject) {
+        StringBuilder sb=new StringBuilder("from Subject s where 1=1 ");
+        Map<String,Object> paramsMap=new HashMap<String, Object>();
+
+        if(subject!=null && subject.getName()!=null && !subject.getName().equals("")){
+            paramsMap.put("name","%"+subject.getName()+"%");
+            sb.append("and s.name like :name ");
+        }
+
+//        if(subject.getSubject()!=null && subject.getSubject().getId()!=0){
+        if(subject.getId()!=0){
+            paramsMap.put("pId",subject.getId());
+            sb.append(" and  s.subject.id = :pId");
+        }
         Query query=entityManager.createQuery(sb.toString());
 
         //查询对象赋值
@@ -42,4 +53,5 @@ public class SubjectDaoImpl implements SubjectRepository {
         pageVo.setContents(query.getResultList());
         return pageVo;
     }
+
 }

@@ -1,0 +1,53 @@
+
+<div class="pageContent">
+
+    <form method="post" action="/guestroom/book" class="pageForm required-validate" onsubmit="return validateCallback(this, dialogAjaxDone)">
+        <div class="pageFormContent" layoutH="58">
+
+            <div class="unit">
+                <label>书籍名：</label>
+                <input type="text" name="patientNo" size="30" minlength="4" maxlength="20" class="required" />
+            </div>
+            <div class="unit">
+                <label>作者：</label>
+                <input type="text" name="patientNames" size="30" class="required"/>
+            </div>
+            <div class="unit">
+                <label>说明：</label>
+                <input type="text" name="patientNames" size="30" class="required"/>
+            </div>
+            <div class="unit">
+                <label>类别：</label>
+                <div id="Acc">
+                </div>
+            </div>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+
+</div>
+<script type="text/javascript">
+    $(function () {
+        $.ajax({
+            url: "ajax/subject/findSubject",
+            type: "post",
+            cache: false,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#Acc").append("<ul class='tree treeFolder treeCheck expand'></ul>");
+                $.each(data,function (i,obj) {
+                    var html = "<li id='d"+obj.id+"'><a href=\"javascript:\" onclick=\"$.bringBack({id:'"+obj.id+"',name:'"+obj.name+"'})\">"+obj.name+"</a></li>";
+                    //var html="<li id='d"+obj.id+"'><a tname='role' tvalue='"+obj.id+"'>"+obj.name+"</a></li>";
+                    $("#Acc >ul").append(html);
+                })
+
+            }
+        });
+    });
+</script>

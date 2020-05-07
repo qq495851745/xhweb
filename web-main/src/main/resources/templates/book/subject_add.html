@@ -1,0 +1,39 @@
+
+<div class="pageContent">
+
+    <form method="post" action="/guestroom/subject"  class="pageForm required-validate" onsubmit="return iframeCallback(this,dialogAjaxDone);" xmlns:th="http://www.thymeleaf.org">
+        <div class="pageFormContent" layoutH="58">
+
+            <div class="unit">
+                <label>书籍类别：</label>
+                <input type="text" name="name" size="30" minlength="1" maxlength="20" value="" class="required" />
+            </div>
+            <div class="unit">
+                <label>描述：</label>
+                <input type="text" name="desc" size="30" value=""/>
+            </div>
+            <div class="unit">
+                <label>flag：</label>
+                <input type="text" name="flag" size="30" value="1" />
+            </div>
+            <div class="unit">
+                <input type="hidden" name="subject.id" size="30" value="" id="book_book_subject_form_subject" />
+            </div>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li><div class="buttonActive"><div class="buttonContent"><button type="submit">提交</button></div></div></li>
+                <li><div class="button"><div class="buttonContent"><button type="button" class="close">取消</button></div></div></li>
+            </ul>
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    /**
+     * 获取父Id
+     */
+var value=$("#AccessOp").find(".selected").find("a").attr("tvalue");
+$("#book_book_subject_form_subject").val(value);
+
+</script>
