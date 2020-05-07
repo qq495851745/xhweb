@@ -38,6 +38,12 @@ public class BookUploadController extends BaseController  {
         return "book/bookUpload_index";
     }
 
+    //跳转
+    @RequestMapping(value = "/oih",method = {RequestMethod.GET,RequestMethod.POST})
+    public String oih(){
+        return "/book/book_oih";
+    }
+
     @RequestMapping(value = "/bookUpload/toUpload",method = {RequestMethod.GET})
     public String toUpload(Book book, Subject subject,Model model){
         model.addAttribute("book",book);

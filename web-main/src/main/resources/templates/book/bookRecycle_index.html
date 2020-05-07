@@ -11,35 +11,40 @@
                     </td>
                     <td>
                         类目:
-                        <select name="subject.id" id="recycle_subject_select">
-                            <option value="-1">全部</option>
-                        </select>
-                        <script type="text/javascript">
-                             $.ajax({
-                                 url:"ajax/subject/findSubject",
-                                 type:"post",
-                                 async:false,
-                                 dataType:"json",
-                                 success:function (data) {
-                                       $.each(data,function (i,obj) {
-                                            $("#recycle_subject_select").append(" <option value="+obj.id+">"+obj.name+"</option>");
-                                       })
-                                 }
-                             })
-                         </script>
-                        <script th:inline="javascript">
-                            var obj = [[${subject}]];
-                            if(obj !== null){
-                                $("#subject_select").val(obj.id);
-                            }
-                        </script>
+<!--                        <select name="subject.id" id="recycle_subject_select">-->
+<!--                            <option value="-1">全部</option>-->
+<!--                        </select>-->
+<!--                        <script type="text/javascript">-->
+<!--                             $.ajax({-->
+<!--                                 url:"ajax/subject/findSubject",-->
+<!--                                 type:"post",-->
+<!--                                 async:false,-->
+<!--                                 dataType:"json",-->
+<!--                                 success:function (data) {-->
+<!--                                       $.each(data,function (i,obj) {-->
+<!--                                            $("#recycle_subject_select").append(" <option value="+obj.id+">"+obj.name+"</option>");-->
+<!--                                       })-->
+<!--                                 }-->
+<!--                             })-->
+<!--                         </script>-->
+<!--                        <script th:inline="javascript">-->
+<!--                            var obj = [[${subject}]];-->
+<!--                            if(obj !== null){-->
+<!--                                $("#subject_select").val(obj.id);-->
+<!--                            }-->
+<!--                        </script>-->
                     </td>
                     <td>
                         <div class="buttonActive">
                             <div class="buttonContent">
-                                <button type="submit">搜索</button>
+                                <input id="book.id" name="book.id" th:value="${book.getSubject().id}" type="hidden" th:if="${book.subject!=null}"/>
+                                <input id="book.id" name="book.id" value="" type="hidden" th:if="${book.subject==null}"/>
+                                <input id="book.name" class="required" name="book.name" type="text" th:value="${book.getSubject().getName()}" th:if="${book.subject!=null}" readonly />
+                                <input id="book.name" class="required" name="book.name" type="text" value="全部" th:if="${book.subject==null}" readonly />
                             </div>
+                            <a class="btnLook" href="/guestroom/oih" lookupGroup="book">选择科目</a>
                         </div>
+                        <div class="buttonActive"><div class="buttonContent"><button type="submit">搜索</button></div></div>
                     </td>
                 </tr>
             </table>
