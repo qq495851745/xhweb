@@ -1,41 +1,43 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<h2 class="contentTitle">选择角色</h2>
-<form method="post" action="/guestroom/user_role" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);" xmlns:th="http://www.thymeleaf.org">
+<h2 class="contentTitle">编辑角色</h2>
+<form method="post" action="/guestroom/user_role" class="pageForm required-validate"
+      onsubmit="return iframeCallback(this, navTabAjaxDone);" xmlns:th="http://www.thymeleaf.org">
+    <input type="hidden" name="_method" value="PUT"/>
     <input type="hidden" name="id" value="" th:value="${user.id}"/>
-    <div class="pageFormContent" layoutH="97">
-        <dl class="nowrap">
-            <dt>用户名：</dt>
-            <dd>
-                <input name="name" type="text" th:value="${user.username}" value="" class="required readonly" maxlength="50"/>
-            </dd>
-        </dl>
-    <div class="pageFormContent" layoutH="97">
-        <dl class="nowrap">
-            <dt>角色：</dt>
-            <dd>
-                <input id="role.id" name="role.id" th:value="${user.getRole().id}" type="hidden"/>
-                <input id="role.name" class="required" name="role.name" type="text" th:value="${user.getRole().getName()}" readonly />
-                <a class="btnLook" href="/guestroom/user_role/selectRoleName" lookupGroup="role">选择角色</a>
-            </dd>
-        </dl>
-</div>
-    <div class="formBar">
-        <ul>
-            <li>
-                <div class="buttonActive">
-                    <div class="buttonContent">
-                        <button type="submit">保存</button>
+    <div class="pageContent">
+        <div class="pageFormContent" layoutH="97">
+            <dl class="nowrap">
+                <dt>用户名：</dt>
+                <dd>
+                    <input name="name" type="text" th:value="${user.username}" value="" class="required readonly" maxlength="50"  readonly/>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt>角色：</dt>
+                <dd>
+                    <input id="role.id" name="role.id" th:value="${user.getRole().id}" type="hidden"/>
+                    <input id="role.name" class="required" name="role.name" type="text" th:value="${user.getRole().getName()}" readonly />
+                    <a class="btnLook" href="/guestroom/user_role/selectRoleName" lookupGroup="role">选择角色</a>
+                </dd>
+            </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">保存</button>
+                        </div>
                     </div>
-                </div>
-            </li>
-            <li>
-                <div class="button">
-                    <div class="buttonContent">
-                        <button class="close" type="button">关闭</button>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button class="close" type="button">关闭</button>
+                        </div>
                     </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </form>
+
