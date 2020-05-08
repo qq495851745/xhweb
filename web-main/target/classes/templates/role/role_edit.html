@@ -1,19 +1,17 @@
 <h2 class="contentTitle">编辑角色</h2>
-<form method="post" action="guestroom/role" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);" xmlns:th="http://www.thymeleaf.org">
+<form method="post" action="guestroom/role" class="pageForm required-validate"
+      onsubmit="return iframeCallback(this, navTabAjaxDone);" xmlns:th="http://www.thymeleaf.org">
     <input type="hidden" name="_method" value="PUT"/>
     <input type="hidden" name="id" value="" th:value="${role.id}"/>
+    <input type="hidden" name="createDate" value="" th:value="${role.createDate}"/>
+    <input type="hidden" name="updateDate" value="" th:value="${role.updateDate}"/>
     <div class="pageContent">
         <div class="pageFormContent" layoutH="97">
             <dl class="nowrap">
                 <dt>角色名：</dt>
                 <dd>
-                    <input name="name" type="text" th:value="${role.name}" value="" class="required readonly" maxlength="50"/>
-                </dd>
-            </dl>
-            <dl class="nowrap">
-                <dt>更新时间：</dt>
-                <dd>
-                    <input name="updateDate" type="date" th:value="${role.updateDate}" value="" class="required readonly" maxlength="50"/>
+                    <input name="name" type="text" th:value="${role.name}" value="" class="required readonly"
+                           maxlength="50"/>
                 </dd>
             </dl>
             <dl class="nowrap">
@@ -29,7 +27,6 @@
                     <a class="btnLook" href="guestroom/userLevel/lookup" lookupGroup="userLevel" >查找带回</a>
                 </dd>
             </dl>-->
-
 
 
         </div>
@@ -62,25 +59,28 @@
             dataType: "json",
             async: false,
             success: function (data) {
-                $("#AccessOptions").append("<ul class='tree treeFolder treeCheck expand'></ul>");
-                $.each(data,function (i,obj) {
+                $("#AccessOptions").append("<ul id='role_edit_tree_ul' class='tree treeFolder treeCheck expand'></ul>");
+                $.each(data, function (i, obj) {
                     // obj生成对应li标签
-                    var html="<li id='d"+obj.id+"'><a tname='menus' tvalue='"+obj.id+"'>"+obj.name+"</a></li>";
+                    var html = "<li id='d" + obj.id + "'><a tname='menus' tvalue='" + obj.id + "'>" + obj.name + "</a></li>";
                     //分辨层次
-                    if(obj.pId==0){//是顶级标签
+                    if (obj.pId == 0) {//是顶级标签
                         $("#AccessOptions >ul ").append(html);
-                    }else{//不是顶级标签
-                        var pid="d"+obj.pId;//获取父亲ID
-                        var size=$("#"+pid).find("ul").size()//ul是否已经加了
-                        if(size==0)//没有加ul
-                            $("#"+pid).append("<ul></ul>");
-                        $("#"+pid).find("ul").append(html);   //找到父级标签
+                    } else {//不是顶级标签
+                        var pid = "d" + obj.pId;//获取父亲ID
+                        var size = $("#" + pid).find("ul").size()//ul是否已经加了
+                        if (size == 0)//没有加ul
+                            $("#" + pid).append("<ul></ul>");
+                        $("#" + pid).find("ul").append(html);   //找到父级标签
 
                     }
                 })
 
             }
         });
+        window.setInterval(function () {
+            $(".indeterminate").find("input").attr("checked", "checked");
+        }, 100)
     })();
     (function () {
         $.ajax({
@@ -89,28 +89,41 @@
             cache: false,
             dataType: "json",
             async: false,
-            success:function (data) {
-                $.each(data,function (i,obj) {
-                    // $("#d"+obj.id+" :checkbox").prop("checked",true);
-                    // console.log(obj)
-                    // $("#d"+obj.id+" > div:eq(2)").addClass("ckbox checked");
-                    // $("#d"+obj.id).find("input").attr("checked","checked");
+            success: function (data) {
+                var handler = window.setInterval(function () {
+                    if ($("#d" + data[0].id).find("input").size() != 0) {// 判断标签已经加载
+                        window.clearInterval(handler);  //停止定时器
+                        $.each(data, function (i, obj) {
+                            if ($("#d" + obj.id + ">div").find("input").size() != 0) {
+                                $("#d" + obj.id + ">div").find("input").attr("checked", "checked");
+                                $("#d" + obj.id + ">div").find("input").parent("div").removeClass("unchecked").addClass("checked");
+                            }
+                        });
+                        //选中所有li
+                        var $li = $("#role_edit_tree_ul").find("li");
+                        //筛选出有子菜单的Li
+                        $li = $li.filter(function (index) {
+                            return $(this).find("ul").size()!=0;
+                        });
+                        //遍历父菜单，判断父菜单状态
+                        $li.each(function (index,obj) {
+                           //统计obj 下面的li个数
+                            var li_size=$(obj).find("li").size();
+                            //统计obj下面选中的input个数
+                            var input_size=$(obj).find("input:checked:gt(0)").size();
+                            //修改样式
+                             if(li_size!=input_size && input_size!=0){// 样式为indeterminate
+                                  $(obj).find(">div>div.ckbox").removeClass("checked").addClass("indeterminate");
 
-                    var handler = window.setInterval(function(){
-                         console.log(new Date())
-                        // $("#d"+obj.id+" > div:eq(2)").addClass("ckbox checked");
-                        $("#d"+obj.id).find("input").attr("checked","checked");
-                        if($("#d"+obj.id).find("input").size()!=0)// 判断标签已经加载
-                            window.clearInterval(handler);  //停止定时器
-                        $("#d"+obj.id).find("input").parent().addClass("checked")
-                    },1)
+                             }
 
-                })
+                        })
+
+                    }
+                }, 1)
+
             }
-
-
         })
-
     })();
 
 </script>

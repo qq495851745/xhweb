@@ -42,7 +42,7 @@
     </div>
 </form>
 <script type="text/javascript">
-    $(function () {
+    (function () {
         $.ajax({
             url: "ajax/menu/findMenus",
             type: "post",
@@ -69,7 +69,12 @@
 
             }
         });
-    });
+    })();
+    (function () {
+        window.setInterval(function(){
+            $(".indeterminate").find("input").attr("checked","checked");
+        },100);
+    })();
 </script>
 
 

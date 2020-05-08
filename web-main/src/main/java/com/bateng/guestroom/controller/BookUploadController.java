@@ -29,7 +29,7 @@ public class BookUploadController extends BaseController  {
     @Autowired
     private BookUploadBiz bookUploadBiz;
 
-    @RequestMapping(value = "/bookUpload/book_index", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/bookUpload/index", method = {RequestMethod.GET, RequestMethod.POST})
     public String index(PageVo<Book> pageVo, Book book, Model model) {
         pageVo = bookUploadBiz.findBookByPage(pageVo,book);
         model.addAttribute("pageVo", pageVo);
