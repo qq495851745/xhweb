@@ -4,21 +4,21 @@
         <input type="hidden" name="numPerPage" value="" th:value="${pageVo.numPerPage}"/>
         <div class="searchBar">
             <table class="searchContent">
-<!--                <tr>-->
-<!--                    <td>-->
-<!--                        类目:-->
-<!--                    </td>-->
-<!--                    <td>-->
-<!--                        <div class="buttonActive">-->
-<!--                            <div class="buttonContent">-->
-<!--                                <input id="book.id" name="book.id" th:value="${book.getSubject().id}" type="hidden" th:if="${book.subject!=null}"/>-->
-<!--                                <input id="book.id" name="book.id" value="" type="hidden" th:if="${book.subject==null}"/>-->
-<!--                                <input id="book.name" class="required" name="book.name" type="text" th:value="${book.getSubject().getName()}" th:if="${book.subject!=null}" readonly />-->
-<!--                                <input id="book.name" class="required" name="book.name" type="text" value="全部" th:if="${book.subject==null}" readonly />-->
-<!--                            </div>-->
-<!--                            <a class="btnLook" href="/guestroom/oih" lookupGroup="book">选择科目</a>-->
-<!--                        </div>-->
-<!--                    </td>-->
+                <tr>
+                    <td>
+                        类目:
+                    </td>
+                    <td>
+                        <div class="buttonActive">
+                            <div class="buttonContent">
+                                <input id="book.id" name="subject.id" th:value="${book.getSubject().id}" type="hidden" th:if="${book.subject!=null}"/>
+                                <input id="book.id" name="subject.id" value="" type="hidden" th:if="${book.subject==null}"/>
+                                <input id="book.name" class="required" name="subject.name" type="text" th:value="${book.getSubject().getName()}" th:if="${book.subject!=null}" readonly />
+                                <input id="book.name" class="required" name="subject.name" type="text" value="全部" th:if="${book.subject==null}" readonly />
+                            </div>
+                            <a class="btnLook" href="/guestroom/oih" lookupGroup="subject">选择科目</a>
+                        </div>
+                    </td>
                     <td>
                         状态:
                         <select name="flag" id="book_index_subject_id">
