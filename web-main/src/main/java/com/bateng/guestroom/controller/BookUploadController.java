@@ -29,13 +29,19 @@ public class BookUploadController extends BaseController  {
     @Autowired
     private BookUploadBiz bookUploadBiz;
 
-    @RequestMapping(value = "/bookUpload/book_index", method = {RequestMethod.GET, RequestMethod.POST})
+    @RequestMapping(value = "/bookUpload/index", method = {RequestMethod.GET, RequestMethod.POST})
     public String index(PageVo<Book> pageVo, Book book, Model model) {
         pageVo = bookUploadBiz.findBookByPage(pageVo,book);
         model.addAttribute("pageVo", pageVo);
         model.addAttribute("book", book);
         model.addAttribute("subject",book.getSubject());
         return "book/bookUpload_index";
+    }
+
+    //跳转
+    @RequestMapping(value = "/oih",method = {RequestMethod.GET,RequestMethod.POST})
+    public String oih(){
+        return "/book/book_oih";
     }
 
     @RequestMapping(value = "/bookUpload/toUpload",method = {RequestMethod.GET})

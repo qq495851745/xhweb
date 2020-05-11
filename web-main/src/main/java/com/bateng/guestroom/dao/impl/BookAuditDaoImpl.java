@@ -1,10 +1,8 @@
 package com.bateng.guestroom.dao.impl;
 
-import com.bateng.guestroom.dao.SubjectDao;
-import com.bateng.guestroom.dao.repository.SubjectRepository;
+import com.bateng.guestroom.dao.repository.BookAuditRepository;
 import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.PageVo;
-import com.bateng.guestroom.entity.Subject;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -13,27 +11,30 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository("subjectRepository")
-public class SubjectDaoImpl implements SubjectRepository {
+@Repository("bookAuditRepository")
+public class BookAuditDaoImpl implements BookAuditRepository {
     @PersistenceContext
     private EntityManager entityManager;
 
-
     @Override
-    public PageVo<Subject> findSubjectByPage(PageVo<Subject> pageVo, Subject subject) {
-        StringBuilder sb=new StringBuilder("from Subject s where 1=1 ");
-        Map<String,Object> paramsMap=new HashMap<String, Object>();
+    public PageVo<Book> findBookAuditByPage(PageVo<Book> pageVo, Book book) {
+        StringBuilder sb=new StringBuilder("from Book b where 1=1");
+        Map<String,Object> paramsMap=new HashMap<String, Object>();//查询参数
 
-        if(subject!=null && subject.getName()!=null && !subject.getName().equals("")){
-            paramsMap.put("name","%"+subject.getName()+"%");
-            sb.append("and s.name like :name ");
+        if(book!=null && book.getName()!=null && !book.getName().equals("")){
+            paramsMap.put("name","%"+book.getName()+"%");
+            sb.append("and b.name like :name ");
         }
-
-//        if(subject.getSubject()!=null && subject.getSubject().getId()!=0){
-        if(subject.getId()!=0){
-            paramsMap.put("pId",subject.getId());
-            sb.append(" and  s.subject.id = :pId");
+        if(book!=null && book.getSubject()!=null && book.getSubject().getId()!=null
+                && book.getSubject().getId()!=-1){
+            paramsMap.put("s_id",book.getSubject().getId());
+            sb.append("and b.subject.id = :s_id ");
         }
+        if(book.getFlag()!=null && book.getFlag()!=-1){
+            paramsMap.put("flag",book.getFlag());
+            sb.append(" and b.flag = :flag");
+        }
+        sb.append(" order by b.createDate ");
         Query query=entityManager.createQuery(sb.toString());
 
         //查询对象赋值
@@ -55,5 +56,4 @@ public class SubjectDaoImpl implements SubjectRepository {
         pageVo.setContents(query.getResultList());
         return pageVo;
     }
-
 }
