@@ -10,35 +10,43 @@
                     </td>
                     <td>
                         类目:
-                        <select name="subject.id" id="subject_select">
-                            <option value="-1">全部</option>
-                        </select>
-                        <script type="text/javascript">
-                             $.ajax({
-                                 url:"ajax/subject/findSubject",
-                                 type:"post",
-                                 async:false,
-                                 dataType:"json",
-                                 success:function (data) {
-                                       $.each(data,function (i,obj) {
-                                            $("#subject_select").append(" <option value="+obj.id+">"+obj.name+"</option>");
-                                       })
-                                 }
-                             })
-                         </script>
-                        <script th:inline="javascript">
-                            var obj = [[${subject}]];
-                            if(obj !== null){
-                                $("#subject_select").val(obj.id);
-                            }
-                        </script>
+<!--                        <select name="subject.id" id="subject_select">-->
+<!--                            <option value="-1">全部</option>-->
+<!--                        </select>-->
+<!--                        <script type="text/javascript">-->
+<!--                            $(function () {-->
+<!--                                $.ajax({-->
+<!--                                    url: "ajax/subject/findSubject",-->
+<!--                                    type: "post",-->
+<!--                                    cache: false,-->
+<!--                                    dataType: "json",-->
+<!--                                    async: false,-->
+<!--                                    success: function (data) {-->
+<!--                                        $("#Acc").append("<ul class='tree treeFolder treeCheck expand'></ul>");-->
+<!--                                        $.each(data,function (i,obj) {-->
+<!--                                            var html = "<li id='d"+obj.id+"'><a href=\"javascript:\" onclick=\"$.bringBack({id:'"+obj.id+"',name:'"+obj.name+"'})\">"+obj.name+"</a></li>";-->
+<!--                                            //var html="<li id='d"+obj.id+"'><a tname='role' tvalue='"+obj.id+"'>"+obj.name+"</a></li>";-->
+<!--                                            $("#Acc >ul").append(html);-->
+<!--                                        })-->
+
+<!--                                    }-->
+<!--                                });-->
+<!--                            });-->
+<!--                        </script>-->
                     </td>
                     <td>
                         <div class="buttonActive">
                             <div class="buttonContent">
-                                <button type="submit">搜索</button>
+                                <input id="book.id" name="subject.id" th:value="${book.getSubject().id}" type="hidden" th:if="${book.subject!=null}"/>
+                                <input id="book.id" name="subject.id" value="" type="hidden" th:if="${book.subject==null}"/>
+                                <input id="book.name" class="required" name="subject.name" type="text" th:value="${book.getSubject().getName()}" th:if="${book.subject!=null}" readonly />
+                                <input id="book.name" class="required" name="subject.name" type="text" value="全部" th:if="${book.subject==null}" readonly />
                             </div>
+                            <a class="btnLook" href="/guestroom/oih" lookupGroup="subject">选择科目</a>
                         </div>
+                        <div class="buttonActive"><div class="buttonContent"><button type="submit">搜索</button></div></div>
+                    </td>
+                    <td>
                     </td>
                 </tr>
             </table>

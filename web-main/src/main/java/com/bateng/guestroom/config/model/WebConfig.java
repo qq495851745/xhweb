@@ -18,7 +18,15 @@ public class WebConfig {
     @Value("${book.file.path}")
     private String bookPath;
 
-  public String getPhotoUrl() {
+    public String getBookPath() {
+        return bookPath;
+    }
+
+    public void setBookPath(String bookPath) {
+        this.bookPath = bookPath;
+    }
+
+    public String getPhotoUrl() {
         return photoUrl;
     }
 
@@ -32,13 +40,5 @@ public class WebConfig {
 
     public void setUrl(String url) {
         this.url = url;
-    }
-
-    public String getBookPath() {
-        return bookPath;
-    }
-
-    public void setBookPath(String bookPath) {
-        this.bookPath = bookPath;
     }
 }

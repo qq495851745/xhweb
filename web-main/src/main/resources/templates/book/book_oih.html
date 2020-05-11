@@ -1,0 +1,51 @@
+<div class="divider"></div>
+    <div class="tabs">
+        <div class="tabsHeader">
+            <div class="tabsHeaderContent">
+                <ul>
+                    <li><a href="javascript:;"><span>书籍类别</span></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="tabsContent">
+            <div>
+                <div id="AccessOp" layoutH="146" style="float:left; display:block; overflow:auto; width:795px; border:solid 1px #CCC; line-height:21px; background:#fff">
+
+                </div>
+            </div>
+        </div>
+        <div class="tabsFooter">
+            <div class="tabsFooterContent"></div>
+        </div>
+    </div>
+
+<script type="text/javascript">
+    (function () {
+        $.ajax({
+            url: "ajax/subject/findSubject",
+            type: "post",
+            cache: false,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $("#AccessOp").append("<ul class='tree treeFolder'></ul>");
+                $.each(data,function (i,obj) {
+                    // obj生成对应li标签
+                    var html = "<li id='d"+obj.id+"'><a href=\"javascript:\" onclick=\"$.bringBack({id:'"+obj.id+"',name:'"+obj.name+"'})\">"+obj.name+"</a></li>";
+                    //分辨层次
+                    if(obj.pId==0){//是顶级标签
+                        $("#AccessOp >ul ").append(html);
+                    }else{//不是顶级标签
+                        var pid="d"+obj.pId;//获取父亲ID
+                        var size=$("#"+pid).find("ul").size()//ul是否已经加了
+                        if(size==0)//没有加ul
+                            $("#"+pid).append("<ul></ul>");
+                        $("#"+pid).find("ul").append(html);   //找到父级标签
+
+                    }
+                })
+
+            }
+        });
+    })();
+</script>
