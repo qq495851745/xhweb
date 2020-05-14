@@ -30,8 +30,4 @@ public interface SubjectDao extends JpaRepository<Subject,Integer>, SubjectRepos
     @Query("update Subject s set s.name=:name,s.desc=:desc where s.id= :id")
     @Modifying
     public void updateSubject(String name,String desc,int id);
-
-    @Query("select b from Book b where b.subject.id=:id")
-    @Modifying
-    public List<Book> findBookById(int id);
 }

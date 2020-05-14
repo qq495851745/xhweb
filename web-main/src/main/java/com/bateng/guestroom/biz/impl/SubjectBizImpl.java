@@ -34,11 +34,6 @@ public class SubjectBizImpl implements SubjectBiz {
 
 
     @Override
-    public List<Book> findBookById(int id) {
-        return subjectDao.findBookById(id);
-    }
-
-    @Override
     public List<Subject> findSubject() {
         return subjectDao.findAllByFlag(1);
     }

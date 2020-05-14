@@ -1,7 +1,6 @@
 package com.bateng.guestroom.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Table(name = "t_book")
@@ -35,40 +34,6 @@ public class Book {
 
     @Column(name = "is_delete")
     private Boolean deleteFlag;
-
-    @Column(name = "createdate")
-    @Temporal(TemporalType.DATE)
-    private Date createDate;
-
-    @Column(name = "delflag")
-    private Integer flag;//删除标记
-
-    @Column(name = "reason")
-    private String rea;
-
-    public String getRea() {
-        return rea;
-    }
-
-    public void setRea(String rea) {
-        this.rea = rea;
-    }
-
-    public Integer getFlag() {
-        return flag;
-    }
-
-    public void setFlag(Integer flag) {
-        this.flag = flag;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
 
     public String getFileName() {
         return fileName;

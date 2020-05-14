@@ -5,7 +5,6 @@ import com.bateng.guestroom.dao.repository.SubjectRepository;
 import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Subject;
-import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,7 +12,6 @@ import javax.persistence.Query;
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository("subjectRepository")
 public class SubjectDaoImpl implements SubjectRepository {
     @PersistenceContext
     private EntityManager entityManager;

@@ -1,7 +1,6 @@
 package com.bateng.guestroom.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bateng.guestroom.biz.BookUploadBiz;
 import com.bateng.guestroom.biz.SubjectBiz;
 import com.bateng.guestroom.config.constant.StatusCodeDWZ;
 import com.bateng.guestroom.entity.*;
@@ -78,21 +77,16 @@ public class SubjectController {
     public String deleteSubject(@PathVariable("id") int id,Subject subject){
         subject = subjectBiz.getSubjectById(id);
         List<Subject> subjects =  subjectBiz.findAllByPid(subject.getId());
-        List<Book> books = subjectBiz.findBookById(id);
         JSONObject jsonObject = new JSONObject();
-        if(subjects.size()!=0){
-            jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
-            jsonObject.put("message", "该数据有子级,不能删除!");
-        }
-        if(books.size()!=0){
-            jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
-            jsonObject.put("message", "该类目下有数据,不能删除!");
-        }
         if(subjects.size()==0){
             subjectBiz.deleteSubjectById(id);
             jsonObject.put("statusCode", StatusCodeDWZ.OK);
             jsonObject.put("message", "删除成功!");
             jsonObject.put("navTabId", "w_34");
+        }
+       else if(subjects.size()!=0){
+            jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
+            jsonObject.put("message", "该数据有子级,不能删除!");
         }
         return jsonObject.toJSONString();
     }
