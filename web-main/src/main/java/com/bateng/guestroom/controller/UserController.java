@@ -6,6 +6,7 @@ import com.bateng.guestroom.config.constant.StatusCodeDWZ;
 import com.bateng.guestroom.config.controller.BaseController;
 import com.bateng.guestroom.entity.*;
 
+import jdk.nashorn.internal.ir.ReturnNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,6 +49,12 @@ public class UserController extends BaseController {
 
     public String Modification(){
         return "";
+    }
+
+    @RequestMapping(value = "/test", method = RequestMethod.GET, produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String test(){
+        return "{\"mess\":\"后台测试\"}";
     }
 
     //做添加操作

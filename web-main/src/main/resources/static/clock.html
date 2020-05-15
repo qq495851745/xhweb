@@ -5,36 +5,32 @@
     <title>Title</title>
     <base href="http://localhost/"/>
     <script type="text/javascript" src="js/vue.min.js"></script>
+    <script type="text/javascript" src="js/axios.min.js"></script>
 </head>
-<body>
-   <div id="clock">
-       <span>{{fhour()}}</span><span>:</span><span>{{min}}</span><span>:</span><span>{{fsec()}}</span>
-   </div>
+<body >
+<div id="clock">
+    <p v-html="da.a"></p>
+    <button @click="send">发送</button>
+</div>
 </body>
 <script type="text/javascript">
-    var dat={
-        hour:12,
-        min:23,
-        sec:19
-    };
+    var da ={a:"1"}
 new Vue({
     el:"#clock",
-    data:dat,
+    data:da,
     methods:{
-        fhour:function(){
-              return new Date().getHours();
-        },
-        fsec:function(){
-            return new Date().getSeconds();
+        send:function () {
+            axios({
+                method:'get',
+                url:'guestroom/test'
+            }).then(function(resp){
+                console.log(resp.data);
+                da.a=resp.data.a;
+            }).catch(function (err) {  })
         }
-    }
+        }
+
 })
 
-    /*window.setInterval(function(){
-        var date = new Date();
-        dat.hour = date.getHours();
-        dat.min = date.getMinutes();
-        dat.sec = date.getSeconds();
-    },1000);*/
 </script>
 </html>

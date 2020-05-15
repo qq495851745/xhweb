@@ -29,7 +29,7 @@ public class Grade {
     /*
     描述
      */
-    @Column(name = "besc")
+    @Column(name = "desc")
     public String zesc;
 
     public int getId() {

@@ -65,7 +65,7 @@ public class GradeController {
             gradeBiz.addGrade(grade);
             jsonObject.put("statusCode", StatusCodeDWZ.OK);
             jsonObject.put("callbackType", "closeCurrent");//关闭当前标签页
-            jsonObject.put("navTabId", "w_45");
+            jsonObject.put("navTabId", "w_49");
             jsonObject.put("message", "班级添加成功");
         }
         return jsonObject.toJSONString();
@@ -85,7 +85,7 @@ public class GradeController {
             gradeBiz.deleteGradeById(id);
             jsonObject.put("statusCode", StatusCodeDWZ.OK);
             jsonObject.put("message", "删除成功!");
-            jsonObject.put("navTabId", "w_45");
+            jsonObject.put("navTabId", "w_49");
         }
         else if(grades.size()!=0){
             jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
@@ -109,7 +109,7 @@ public class GradeController {
         gradeBiz.updateGrade(grade);
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("statusCode", StatusCodeDWZ.OK);
-        jsonObject.put("navTabId", "w_45");
+        jsonObject.put("navTabId", "w_49");
         jsonObject.put("callbackType","closeCurrent");
         jsonObject.put("message", "修改完成!");
         return  jsonObject.toJSONString();
