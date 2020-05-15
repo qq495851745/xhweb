@@ -1,0 +1,61 @@
+<h2 class="contentTitle">审核评论</h2>
+<form method="post" action="/guestroom/commentAudit" class="pageForm required-validate" onsubmit="return iframeCallback(this, navTabAjaxDone);" xmlns:th="http://www.thymeleaf.org">
+    <input type="hidden" name="_method" value="PUT"/>
+    <input type="hidden" name="id" value="" th:value="${comment.id}"/>
+    <div class="pageContent">
+        <div class="pageFormContent" layoutH="97">
+            <dl class="nowrap">
+                <dt>用户名：</dt>
+                <dd>
+                    <input name="user.username" type="text" th:value="${comment.user.username}" value="" class="required readonly" maxlength="50" readonly/>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt>书名：</dt>
+                <dd>
+                    <input name="book.name" type="text" th:value="${comment.book.name}" value="" class="required readonly" maxlength="50" readonly/>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt>评论：</dt>
+                <dd>
+                    <input  type="text" name="commentContent" th:value="${comment.commentContent}" readonly/>
+                </dd>
+            </dl>
+            <dl class="nowrap">
+                <dt>审核结果:</dt>
+                <dd>
+                    <input type="radio" name="flag" value="1" checked="checked"/>通过
+                    <input type="radio" name="flag" value="2"/>不通过
+                </dd>
+            </dl>
+
+            <dl class="nowrap">
+                <dt>审核理由:</dt>
+                <dd>
+                    <input type="text" name="rea" value="" th:value="${comment.rea}"/>
+                </dd>
+            </dl>
+        </div>
+        <div class="formBar">
+            <ul>
+                <li>
+                    <div class="buttonActive">
+                        <div class="buttonContent">
+                            <button type="submit">审核</button>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="button">
+                        <div class="buttonContent">
+                            <button class="close" type="button">关闭</button>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</form>
+
+

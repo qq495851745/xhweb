@@ -1,0 +1,107 @@
+<div class="pageHeader" style="border:1px #B8D0D6 solid" xmlns:th="http://www.thymeleaf.org">
+    <form id="pagerForm" onsubmit="return navTabSearch(this);" action="/guestroom/commentAudit/index" method="post">
+        <input type="hidden" name="pageNum" value="1" th:value="${pageVo.pageNum}"/>
+        <input type="hidden" name="numPerPage" value="" th:value="${pageVo.numPerPage}"/>
+        <div class="searchBar">
+            <table class="searchContent">
+                <tr>
+                    <td>
+                        状态:
+                        <select name="flag" id="comment_flag">
+                            <option value="-1">全部</option>
+                            <option value="0">未审核</option>
+                            <option value="1">审核通过</option>
+                            <option value="2">审核不通过</option>
+                        </select>
+                        <script th:inline="javascript">
+                            var obj=[[${comment}]]
+                            $("#comment_flag").val(obj.flag);
+                        </script>
+                    </td>
+                    <td>
+                        <div class="buttonActive">
+                            <div class="buttonContent">
+                                <button type="submit">检索</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</div>
+<div class="pageContent" style="border-left:1px #B8D0D6 solid;border-right:1px #B8D0D6 solid"
+     xmlns:th="http://www.thymeleaf.org" id="audit_comment_index_pageContent">
+    <div class="panelBar">
+        <ul class="toolBar">
+            <li><a class="edit" href="/guestroom/commentAudit/{sid_obj}" target="navTab"
+                   mask="true"><span>审核/查看</span></a></li>
+            <li class="line">line</li>
+        </ul>
+    </div>
+    <table class="table" width="100%" layoutH="100" id="bt_comment_table" >
+        <thead>
+        <tr >
+            <th width="80">序号</th>
+            <th width="120">用户名</th>
+            <th width="120">书名</th>
+            <th width="120">评论</th>
+            <th width="120">状态</th>
+            <th width="120">审核理由</th>
+            <th width="120">创建时间</th>
+        </tr>
+        </thead>
+        <tbody >
+        <tr th:each="comment:${pageVo.contents}" th:attr="rel=${comment.id}">
+            <td th:text="${commentStat.index+1}">1</td>
+            <td th:text="${comment.user.username}">1</td>
+            <td th:text="${comment.book.name}"></td>
+            <td th:text="${comment.commentContent}"></td>
+            <td th:if="${comment.flag==0}">未审核</td>
+            <td th:if="${comment.flag==1}">审核通过</td>
+            <td th:if="${comment.flag==2}">审核不通过</td>
+            <td th:text="${comment.rea}"></td>
+            <td th:text="${comment.commentDate}">1</td>
+        </tr>
+        </tbody>
+        <script type="text/javascript">
+            $("#bt_comment_table").find("th,td").css({"text-align": "center"});
+        </script>
+    </table>
+    <div class="panelBar">
+        <div class="pages">
+            <span>显示</span>
+            <select id="bt_comment_sel" class="combox" name="numPerPage"
+                    onchange="navTabPageBreak({numPerPage:this.value,pageNum:1})">
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
+            <span th:text="${'条，共'+pageVo.totalCount+'条'}">条，共50条</span>
+        </div>
+
+        <div th:attr="pageNumShown=${pageVo.getTotalPages()>=5?5:pageVo.totalPages}, currentPage=${pageVo.pageNum},totalCount=${pageVo.totalCount},numPerPage=${pageVo.numPerPage}"
+             class="pagination" targettype="navTab"  totalCount="100" numPerPage="20" pageNumShown="5" currentPage="2"></div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(window).trigger("resize");
+    //消除分页错误
+    setTimeout(function () {
+        var len = $("#bt_comment_sel").parent().find("a").size();
+        if (!len)
+            setTimeout(arguments.callee, 100);
+        else {
+            displayText({"relId":"audit_comment_index_pageContent"});
+            $("#bt_comment_sel").css({display: "block"});
+            $("#bt_comment_sel").prev().css({display: "none"});
+            $("#bt_comment_sel").val($("#bt_comment_sel").parents(".unitBox:first").find("input[name=\"numPerPage\"]").val());
+
+        }
+    }, 1);
+
+
+</script>

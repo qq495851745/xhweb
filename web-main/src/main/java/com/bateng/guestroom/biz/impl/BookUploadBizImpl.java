@@ -56,7 +56,10 @@ public class BookUploadBizImpl implements BookUploadBiz {
         return bookUploadDao.findRecycleBookByPage(pageVo,book);
     }
 
-
+    @Override
+    public List<Book> findAll() {
+        return bookUploadDao.findAll();
+    }
 
 
 }

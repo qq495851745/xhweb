@@ -39,4 +39,6 @@ public interface BookUploadBiz {
     public void updateBook(Book book);
 
     public PageVo<Book> findRecycleBookByPage(PageVo<Book> pageVo,Book book);
+
+    public List<Book> findAll();
 }
