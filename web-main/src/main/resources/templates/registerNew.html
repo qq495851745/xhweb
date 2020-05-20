@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <base href="http://localhost/"/>
+    <script type="text/javascript" src="dwz/js/jquery-2.1.4.js"></script>
+</head>
+<body>
+    <form action="/register/doRegister" method="post">
+        <table>
+            <tr>
+                <td>用户名：</td>
+                <td><input type="text" name="username" size="30" maxlength="20"/></td>
+                <td><span id="usernameMsg" th:text="${userMsg}" style="color: red"></span></td>
+            </tr>
+            <tr>
+                <td>真实姓名：</td>
+                <td><input type="text" name="realName" size="30" maxlength="20"/></td>
+            </tr>
+            <tr id="selRole">
+                <td><input type="radio" name="role" id="student" value=8 />学生</td>
+                <td><input type="radio" name="role" id="teacher" value=7 />教师</td>
+            </tr>
+            <tr id="className">
+                <td>班级：</td>
+                <td><input type="text" name="className" size="30" maxlength="20"/></td>
+            </tr>
+            <tr>
+                <td>电话号码：</td>
+                <td><input type="text" name="tel" size="30" maxlength="20"/></td>
+            </tr>
+            <tr>
+                <td>密码：</td>
+                <td><input type="password" name="password" size="30" maxlength="20"/></td>
+                <td><span id="password1Msg"></span></td>
+            </tr>
+            <tr>
+                <td>确认密码：</td>
+                <td><input type="password" name="password2" size="30" maxlength="20"/></td>
+                <td><span id="password2Msg" th:text="${passwordMsg}" style="color: red"></span></td>
+            </tr>
+            <tr>
+                <td>邮箱</td>
+                <td><input type="text" name="email" size="30" maxlength="30"/></td>
+                <td><span id="emailMsg" th:text="${emailMsg}" style="color: red"></span></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="注册" id="register" /></td>
+            </tr>
+        </table>
+    </form>
+</body>
+</html>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#selRole").find("input").click(function () {
+            var val = $(this).val();
+            f(val);
+        });
+        function f(val) {
+            if(val == 7){
+                $("#className").hide();
+            }else{
+                $("#className").show();
+            }
+        }
+    });
+</script>

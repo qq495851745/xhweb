@@ -10,11 +10,9 @@ import jdk.nashorn.internal.ir.ReturnNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -60,14 +58,14 @@ public class UserController extends BaseController {
     //做添加操作
     @RequestMapping(value = "/user", method = RequestMethod.POST, produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String add(User user) {
+    public String add(User user, HttpServletRequest request) {
         JSONObject jsonObject = new JSONObject();
         //验证用户名是否存在
         List<User> users = userBiz.findUserByName(user);
         if (users.size() > 0) {//这个用户已经存在
             jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
             jsonObject.put("message", "当前用户名已经存在，不能使用");
-        } else {
+        }else{
             userBiz.addUser(user);
             jsonObject.put("statusCode", StatusCodeDWZ.OK);
             jsonObject.put("callbackType", "closeCurrent");//关闭当前标签页

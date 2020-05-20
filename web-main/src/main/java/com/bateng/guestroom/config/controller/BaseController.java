@@ -45,6 +45,7 @@ public class BaseController {
 
     @InitBinder
     public void initBinder(WebDataBinder binder){
-      binder.registerCustomEditor(String.class,"password",new MD5PropertyEditor());
+        binder.registerCustomEditor(String.class,"password",new MD5PropertyEditor());
+        binder.registerCustomEditor(String.class,"newPassword",new MD5PropertyEditor());
     }
 }

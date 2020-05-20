@@ -70,6 +70,7 @@ public class BookUploadController extends BaseController  {
         if(file.isEmpty()){
             jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
             jsonObject.put("message", "文件为空或不存在");
+            jsonObject.put("navTabId", "w_35");
         }else{
             String uuid = UUID.randomUUID().toString();
             String fileName = file.getOriginalFilename();
@@ -88,12 +89,12 @@ public class BookUploadController extends BaseController  {
             book.setFileName(fileName);
             book.setSuffixName(suffixName);
             book.setDeleteFlag(false);
+            bookUploadBiz.updateBook(book);
+            jsonObject.put("statusCode", StatusCodeDWZ.OK);
+            jsonObject.put("message", "更新完成!");
+            jsonObject.put("navTabId", "w_35");
+            jsonObject.put("callbackType","closeCurrent");
         }
-        bookUploadBiz.updateBook(book);
-        jsonObject.put("statusCode", StatusCodeDWZ.OK);
-        jsonObject.put("message", "更新完成!");
-        jsonObject.put("navTabId", "w_35");
-        jsonObject.put("callbackType","closeCurrent");
         return  jsonObject.toJSONString();
     }
 

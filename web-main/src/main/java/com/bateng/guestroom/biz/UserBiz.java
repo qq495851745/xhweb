@@ -24,6 +24,8 @@ public interface UserBiz {
 
     public PageVo<User> findUserByPage(PageVo<User> pageVo,User user);
 
+    public List<User> findUserByEmail(User user);
+
     /**
      * 做删除操作
      * @param id
@@ -42,6 +44,4 @@ public interface UserBiz {
      * @return
      */
     public boolean checkUserByUserLevel(int id);
-
-
 }

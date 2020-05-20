@@ -111,6 +111,10 @@ function displayText(json) {
             var $recycle=$("#" + json["relId"]).find("a.recycle");
             $recycle.find("span").html("还原" + "<b style='color: red'>" + text + "</b>");
 
+            //配置下载操作
+            var $download=$("#" + json["relId"]).find("a.download");
+            $download.find("span").html("下载" + "<b style='color: red'>" + text + "</b>");
+
             text = $edit.attr("href");
             text = text.replace(/\/[^\/]+$/g, "/" + id);
             $edit.attr("href", text); //修改href属性

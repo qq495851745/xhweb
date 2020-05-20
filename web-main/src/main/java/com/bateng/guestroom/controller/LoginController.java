@@ -3,7 +3,6 @@ package com.bateng.guestroom.controller;
 
 import com.bateng.guestroom.biz.UserBiz;
 import com.bateng.guestroom.config.controller.BaseController;
-import com.bateng.guestroom.config.model.WebConfig;
 import com.bateng.guestroom.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,8 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.lang.ref.ReferenceQueue;
-import java.nio.channels.SeekableByteChannel;
 import java.util.List;
 
 @Controller
@@ -74,6 +71,7 @@ public class LoginController extends BaseController {
                 return "login";
             }
             session.setAttribute("user",user);
+
             return "redirect:index";
         }
     }
@@ -83,10 +81,6 @@ public class LoginController extends BaseController {
         addurl(model);
         return  "index";
     }
-
-
-
-
 
 
     //退出操作

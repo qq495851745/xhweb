@@ -34,4 +34,8 @@ public interface UserDao extends JpaRepository<User, Integer>, UserRepository {
 
     public User findUserById(int id);
     public List<User> findByUserLevelId(int id);
+
+    @Query("from User u where u.email = :email")
+    @Modifying
+    public List<User> findUserByEmail(String email);
 }
