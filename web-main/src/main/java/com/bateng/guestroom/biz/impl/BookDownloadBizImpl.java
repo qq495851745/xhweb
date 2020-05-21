@@ -1,5 +1,6 @@
 package com.bateng.guestroom.biz.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bateng.guestroom.biz.BookDownloadBiz;
 import com.bateng.guestroom.dao.BookDownloadDao;
 import com.bateng.guestroom.entity.Book;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author 张伟金
@@ -29,5 +31,13 @@ public class BookDownloadBizImpl implements BookDownloadBiz {
         bookDownload.setUser(user);
         bookDownload.setDownloadDate(new Date());
         bookDownloadDao.save(bookDownload);
+    }
+
+
+    @Override
+    public String getDownloadNum01() {
+
+        List<Object> list=bookDownloadDao.getBookDownloadNum01();
+        return JSONObject.toJSONString(list);
     }
 }

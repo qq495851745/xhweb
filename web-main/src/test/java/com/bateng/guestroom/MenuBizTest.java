@@ -1,5 +1,6 @@
 package com.bateng.guestroom;
 
+import com.bateng.guestroom.biz.BookDownloadBiz;
 import com.bateng.guestroom.biz.MenuBiz;
 import com.bateng.guestroom.entity.Menu;
 import org.junit.Test;
@@ -18,10 +19,13 @@ public class MenuBizTest {
     @Autowired
     private MenuBiz menuBiz;
 
+    @Autowired
+    private BookDownloadBiz bookDownloadBiz;
+
     @Test
     public void getMenuByIdTest(){
-
-            menuBiz.findMenus();
+          String string= bookDownloadBiz.getDownloadNum01();
+        System.out.println(string);
     }
 
 
