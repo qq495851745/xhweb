@@ -23,7 +23,6 @@ public class ViewAjaxController {
     @RequestMapping(value = "/getData01" ,method = {RequestMethod.POST,RequestMethod.GET},produces = "application/json;charset=utf-8")
     @ResponseBody
     public String getData01(){
-
-        return  "";
+        return  bookDownloadBiz.getDownloadNum01();
     }
 }

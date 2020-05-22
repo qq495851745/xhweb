@@ -14,7 +14,8 @@ import java.util.List;
 @Repository
 public interface BookDownloadDao extends JpaRepository<BookDownload,Integer> {
 
-    @Query(value = "select tk.bname,count(*) from t_book_download tb ,t_book tk where tb.book_id=tk.bid group by tk.bname",nativeQuery = true)
+//    @Query(value = "select tk.bname,count(*) from t_book_download tb ,t_book tk where tb.book_id=tk.bid group by tk.bname",nativeQuery = true)
+    @Query(value = "select tk.bname,count(tb.book_id) from t_book tk left outer join t_book_download tb on(tk.bid = tb.book_id) group by tk.bname",nativeQuery = true)
     public List<Object> getBookDownloadNum01();
 
 }
