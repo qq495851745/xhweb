@@ -1,9 +1,7 @@
 package com.bateng.guestroom.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.bateng.guestroom.biz.BookAuditBiz;
-import com.bateng.guestroom.biz.BookCommentBiz;
-import com.bateng.guestroom.biz.UserBiz;
+import com.bateng.guestroom.biz.*;
 import com.bateng.guestroom.config.constant.StatusCodeDWZ;
 import com.bateng.guestroom.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +25,8 @@ public class BookCommentController {
     private BookAuditBiz bookAuditBiz;
     @Autowired
     private BookCommentBiz bookCommentBiz;
+    @Autowired
+    private SubjectBiz subjectBiz;
 
     //跳转评论首页
     @RequestMapping(value = "/bookComment/index",method = {RequestMethod.GET,RequestMethod.POST})
@@ -109,8 +109,10 @@ public class BookCommentController {
     //通过图书id来跳转该图书的评论
     @RequestMapping(value = "/comment/lookComment/{book.id}",method = {RequestMethod.GET,RequestMethod.POST})
     public String lookComment(@PathVariable("book.id") int id,PageVo<Comment> pageVo,Comment comment, Model model){
-
 //      List<Comment> comments = bookCommentBiz.findAllByBookId(id);
+//        Book book = bookAuditBiz.getBookById(id);
+//        Subject subject = bookCommentBiz.findSubjectBySubjectId(book);
+//        Subject subject1 = bookCommentBiz.findSubjectByPid(subject);
         pageVo = bookCommentBiz.findLookCommentAuditByPage(pageVo,comment);
         model.addAttribute("pageVo", pageVo);
         model.addAttribute("comment",comment);

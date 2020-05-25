@@ -24,4 +24,11 @@ public class BookAjaxController {
         Book book = (Book) session.getAttribute("book");
         return bookCommentBiz.findBookAjax();
     }
+
+    @RequestMapping(value = "findBookOrSubject" ,method = {RequestMethod.POST,RequestMethod.GET},produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String findBookOrSubject(HttpSession session){
+        Subject subject = (Subject) session.getAttribute("subject");
+        return bookCommentBiz.findSubjectByBookAjax();
+    }
 }

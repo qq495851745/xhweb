@@ -65,4 +65,30 @@ public interface BookCommentBiz {
      * @return Comment 对象
      */
     public Comment findCommentByCon(Comment comment);
+
+    /**
+     * 通过book.subject.id 和来查找Subject对象
+     * @param book  图书
+     * @return Subject 对象
+     */
+    public Subject findSubjectBySubjectId(Book book);
+
+    /**
+     * 通过类别Pid来查找顶级Subject对象
+     * @param subject  类别
+     * @return Subject 对象
+     */
+    public Subject findSubjectByPid(Subject subject);
+
+    /**
+     * 获取每本书的顶级类别
+     * @return json格式
+     */
+    public String findSubjectByBookAjax();
+
+    /**
+     * 获取每本书的评论量(审核通过)的集合
+     * @return  json格式的字符串
+     */
+    public String getBookCommentNum();
 }

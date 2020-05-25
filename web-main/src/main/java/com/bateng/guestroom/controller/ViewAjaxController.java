@@ -1,5 +1,6 @@
 package com.bateng.guestroom.controller;
 
+import com.bateng.guestroom.biz.BookCommentBiz;
 import com.bateng.guestroom.biz.BookDownloadBiz;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ public class ViewAjaxController {
 
     @Autowired
     private BookDownloadBiz bookDownloadBiz;
+    @Autowired
+    private BookCommentBiz bookCommentBiz;
+
     /**
      * 获取某本书下载量的控制器
      * @return
@@ -24,5 +28,15 @@ public class ViewAjaxController {
     @ResponseBody
     public String getData01(){
         return  bookDownloadBiz.getDownloadNum01();
+    }
+
+    /**
+     * 获取某本书评论(审核通过)的控制器
+     * @return
+     */
+    @RequestMapping(value = "/lineSimple" ,method = {RequestMethod.POST,RequestMethod.GET},produces = "application/json;charset=utf-8")
+    @ResponseBody
+    public String line_simple(){
+        return bookCommentBiz.getBookCommentNum();
     }
 }

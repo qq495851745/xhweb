@@ -30,7 +30,7 @@
 <script type="text/javascript">
     (function () {
         $.ajax({
-            url: "ajax/book/findBook",
+            url: "ajax/subject/findSubject",
             type: "post",
             cache: false,
             dataType: "json",
@@ -38,14 +38,46 @@
             success: function (data) {
                 $("#book_look_comment_super").append("<ul class='tree treeFolder'></ul>");
                 $.each(data,function (i,obj) {
-                    // obj生成对应li标签
-                    var html="<li id='d"+obj.id+"'><a href=\"/guestroom/comment/lookComment/"+obj.id+"\"tname='book' tvalue='"+obj.id+"' target=\"ajax\" rel=\"jbsxBox\">"+obj.name+"</a></li>";
-                    //分辨层次
+                    var html="<li id="+obj.id+"><a>"+obj.name+"</a></li>";
+                    if(obj.pId==0)
                         $("#book_look_comment_super >ul ").append(html);
+                })
+            }
+        });
+        // $.ajax({
+        //     url: "ajax/subject/findSubject",
+        //     type: "post",
+        //     cache: false,
+        //     dataType: "json",
+        //     async: false,
+        //     success: function (data) {
+        //         $("#book_look_comment_super").append("<ul class='tree treeFolder'></ul>");
+        //         $.each(data,function (i,obj) {
+        //             var html="<li id="+obj.id+"><a>"+obj.name+"</a></li>";
+        //             if(obj.pId==0)
+        //                 $("#book_look_comment_super >ul ").append(html);
+        //         })
+        //     }
+        // });
+        $.ajax({
+            url: "ajax/book/findBookOrSubject",
+            type: "post",
+            cache: false,
+            dataType: "json",
+            async: false,
+            success: function (data) {
+                $.each(data,function (i,obj) {
+                    var html = "<li id='b" + obj.id + "'><a href=\"/guestroom/comment/lookComment/" + obj.id + "\" tname='book' tvalue='" + obj.id + "' target=\"ajax\" rel=\"jbsxBox\">" + obj.name + "</a></li>";
+                    var size = $("#" + obj.pId + "").find("ul").size()//ul是否已经加了
+                    if (size == 0){//没有加ul
+                        $("#" + obj.pId + "").append("<ul></ul>");
+                    }
+                    $("#"+obj.pId+" >ul ").append(html);
                 })
             }
         });
     })();
 </script>
-<!--href="/guestroom/book/bookIndex" target="ajax" rel="jbsxBox"-->
+
+
 

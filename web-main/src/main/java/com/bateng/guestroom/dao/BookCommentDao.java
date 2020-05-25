@@ -1,7 +1,9 @@
 package com.bateng.guestroom.dao;
 
 import com.bateng.guestroom.dao.repository.BookCommentRepository;
+import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.Comment;
+import com.bateng.guestroom.entity.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,10 +20,16 @@ public interface BookCommentDao extends JpaRepository<Comment,Integer>, BookComm
     public void updateComment(String rea, int flag, int id);
 
     @Query("from Comment c  where c.book.id=:id")
-    @Modifying
     public List<Comment> findAllByBookId(int id);
 
     @Query("from Comment c  where c.book.id=:id and c.commentContent=:con")
-    @Modifying
     public List<Comment> findCommentByCon(int id,String con);
+
+    @Query("from Subject s  where s.id=:bookId ")
+    public Subject findSubjectBySubjectId(int bookId);
+    @Query("from Subject s  where s.subject.id=:pid ")
+    public Subject findSubjectByPid(int pid);
+
+    @Query(value = "select tk.bname,count(tc.book_id) from t_book tk left outer join t_comment tc on(tk.bid = tc.book_id and tc.delflag=1) group by tk.bname",nativeQuery = true)
+    public List<Object> getBookCommentNum();
 }
