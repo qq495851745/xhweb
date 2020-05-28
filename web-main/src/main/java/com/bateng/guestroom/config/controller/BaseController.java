@@ -8,6 +8,7 @@ import com.bateng.guestroom.config.model.WebConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
 
 import java.util.Date;
@@ -37,6 +38,10 @@ public class BaseController {
         jsonObject.put("message",error);
         return  jsonObject.toJSONString();
     }
+
+//    @ExceptionHandler
+//    public
+
 
     public WebConfig getWebConfig() {
         return webConfig;

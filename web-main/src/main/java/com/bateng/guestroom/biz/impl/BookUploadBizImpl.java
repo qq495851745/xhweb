@@ -33,6 +33,7 @@ public class BookUploadBizImpl implements BookUploadBiz {
 
     @Override
     public void uploadBook(Book book) {
+        int i = 1/0;
         bookUploadDao.save(book);
     }
 
