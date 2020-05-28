@@ -6,9 +6,12 @@ import com.bateng.guestroom.dao.BookDownloadDao;
 import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.BookDownload;
 import com.bateng.guestroom.entity.User;
+import com.bateng.guestroom.entity.vo.DownLoadVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.xml.crypto.Data;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +39,14 @@ public class BookDownloadBizImpl implements BookDownloadBiz {
 
     @Override
     public String getDownloadNum01() {
-
         List<Object> list=bookDownloadDao.getBookDownloadNum01();
         return JSONObject.toJSONString(list);
     }
+
+    @Override
+    public String getDownloadByDownloadDate(Date start, Date end) {
+        List<Object> list=bookDownloadDao.getBookDownloadByDownloadDate(start,end);
+        return JSONObject.toJSONString(list);
+    }
+
 }
