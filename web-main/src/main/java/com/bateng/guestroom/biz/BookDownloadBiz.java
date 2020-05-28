@@ -1,8 +1,12 @@
 package com.bateng.guestroom.biz;
 
 import com.bateng.guestroom.entity.Book;
+import com.bateng.guestroom.entity.BookDownload;
 import com.bateng.guestroom.entity.User;
+import com.bateng.guestroom.entity.vo.DownLoadVo;
 
+import javax.xml.crypto.Data;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,4 +21,6 @@ public interface BookDownloadBiz {
      * @return  json格式的字符串
      */
     public String getDownloadNum01();
+
+    public String getDownloadByDownloadDate(Date start, Date end);
 }

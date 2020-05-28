@@ -58,10 +58,12 @@ public class BookUploadController extends BaseController  {
         model.addAttribute("subject",subject);
         return "book/book_edit";
     }
+
     @RequestMapping(value ="/bookUpload/toSelectSubject",method = RequestMethod.GET)
     public String toSelectSubject(){
         return "book/selectSubject";
     }
+
 
     @RequestMapping(value = "/bookUpload/doUpdate",method = RequestMethod.PUT,produces = "application/json;charset=utf-8")
     @ResponseBody
