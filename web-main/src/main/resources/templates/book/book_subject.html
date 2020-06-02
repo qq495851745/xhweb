@@ -19,7 +19,7 @@
         </div>
         <div class="tabsContent">
             <div>
-                <div id="AccessOp" layoutH="146" style="float:left; display:block; overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
+                <div id="book_Subject" layoutH="70" style="float:left; display:block; overflow:auto; width:240px; border:solid 1px #CCC; line-height:21px; background:#fff">
 <!--                    <ul class="tree treeFolder">-->
 <!--                        <li><a href="javascript">实验室检测</a>-->
 <!--                            <ul>-->
@@ -62,13 +62,13 @@
             dataType: "json",
             async: false,
             success: function (data) {
-                $("#AccessOp").append("<ul class='tree treeFolder'></ul>");
+                $("#book_Subject").append("<ul class='tree treeFolder'></ul>");
                 $.each(data,function (i,obj) {
                     // obj生成对应li标签
                     var html="<li id='d"+obj.id+"'><a href=\"/guestroom/subject/subjectIndex/"+obj.id+"\" tname='subjects' tvalue='"+obj.id+"' target=\"ajax\" rel=\"jbsxBox\">"+obj.name+"</a></li>";
                     //分辨层次
                     if(obj.pId==0){//是顶级标签
-                        $("#AccessOp >ul ").append(html);
+                        $("#book_Subject >ul ").append(html);
                     }else{//不是顶级标签
                         var pid="d"+obj.pId;//获取父亲ID
                         var size=$("#"+pid).find("ul").size()//ul是否已经加了

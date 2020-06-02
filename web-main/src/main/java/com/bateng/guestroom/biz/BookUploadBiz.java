@@ -2,7 +2,9 @@ package com.bateng.guestroom.biz;
 
 import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.PageVo;
+import com.bateng.guestroom.entity.vo.UploadVo;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +32,7 @@ public interface BookUploadBiz {
      * 上传图书
      * @param book
      */
-    public void uploadBook(Book book);
+    public void uploadBook(Book book, UploadVo uploadVo) throws IOException;
 
     public void deleteBookById(int bid);
 
@@ -39,6 +41,8 @@ public interface BookUploadBiz {
     public void updateBook(Book book);
 
     public PageVo<Book> findRecycleBookByPage(PageVo<Book> pageVo,Book book);
+
+    public void deleteBookByName(Book book);
 
     public List<Book> findAll();
 }

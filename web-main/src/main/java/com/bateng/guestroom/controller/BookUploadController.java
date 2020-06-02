@@ -7,6 +7,7 @@ import com.bateng.guestroom.config.controller.BaseController;
 import com.bateng.guestroom.entity.Book;
 import com.bateng.guestroom.entity.PageVo;
 import com.bateng.guestroom.entity.Subject;
+import com.bateng.guestroom.entity.vo.UploadVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -83,7 +84,7 @@ public class BookUploadController extends BaseController  {
                 dest.getParentFile().mkdirs();
             }
             try {
-                file.transferTo(dest);
+               file.transferTo(dest);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -102,31 +103,23 @@ public class BookUploadController extends BaseController  {
 
     @RequestMapping(value = "/bookUpload/upload", method =RequestMethod.POST,produces = "application/json;charset=utf-8")
     @ResponseBody
-    public String upload(Book book , @RequestParam("file") MultipartFile file){
+    public String upload(Book book ,UploadVo uploadVo) throws IOException {
         JSONObject jsonObject = new JSONObject();
         List<Book> books = bookUploadBiz.findBookByName(book);
-        if (books.size() > 0 || file.isEmpty()) {//这个书户已经存在
+        if (books.size() > 0 || uploadVo.getFile().isEmpty()) {//这个书户已经存在
             jsonObject.put("statusCode", StatusCodeDWZ.ERROR);
             jsonObject.put("message", "当前书名已经存在或文件为空、不存在，不能使用");
         } else {
             String uuid = UUID.randomUUID().toString();
-            String fileName = file.getOriginalFilename();
+            String fileName = uploadVo.getFile().getOriginalFilename();
             String suffixName = fileName.substring(fileName.lastIndexOf("."));
             String filePath = getWebConfig().getBookPath()+"all/";
             File dest = new File(filePath+uuid+suffixName);
-            if(!dest.getParentFile().exists()){
-                dest.getParentFile().mkdirs();
-            }
-            try {
-                file.transferTo(dest);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
             book.setPath("all/"+dest.getName());
             book.setFileName(fileName);
             book.setSuffixName(suffixName);
             book.setDeleteFlag(false);
-            bookUploadBiz.uploadBook(book);
+            bookUploadBiz.uploadBook(book,uploadVo);
             jsonObject.put("statusCode", StatusCodeDWZ.OK);
             jsonObject.put("callbackType", "closeCurrent");//关闭当前标签页
             jsonObject.put("navTabId", "w_35");
